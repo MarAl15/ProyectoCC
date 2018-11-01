@@ -1,6 +1,6 @@
 # Proyecto a desarrollar
 
-Premio Nobel de Física 
+Publicación de los ganadores del Premio Nobel de Física.
 
 ## Descripción
 En una época donde nos encontramos desbordados de información gracias a la web, la cultura científica se tiende a olvidar. Con este proyecto queremos volver a despertar la curiosidad científica en el ámbito de la física, a partir de los grandes descubridores que obtuvieron el Premio Nobel relacionada con esta rama, incitando a averiguar más sobre ellos y sobre su contribución a la ciencia, e impulsando la investigación y el aprendizaje.
