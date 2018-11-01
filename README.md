@@ -7,7 +7,7 @@ En una época donde nos encontramos desbordados de información gracias a la web
 
 En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un servicio que muestre los ganadores del Premio Nobel de Física.
 
-Este proyecto consiste en publicar una fotografía, acompañada de información relevante, del ganador de un premio Nobel de Física cuya fecha de nacimiento o fallecimiento coincida con la actual.
+Este proyecto consiste en publicar una fotografía, acompañada de información relevante, del ganador de un premio Nobel de Física cuya fecha de nacimiento o fallecimiento coincida con la actual. Toda esta información se extraerá de la enciclopedia libre, políglota y editada de manera colaborativa, [Wikipedia](https://es.wikipedia.org/).
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
