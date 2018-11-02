@@ -5,7 +5,7 @@
 ### Descripción
 En una época donde nos encontramos desbordados de información gracias a la web, la cultura científica se tiende a olvidar. Con este proyecto queremos volver a despertar la curiosidad científica en algunos de los ámbitos de la ciencia, a partir de los grandes descubridores que obtuvieron el Premio Nobel, incitando a averiguar más sobre ellos y sobre su contribución a la ciencia, e impulsando la investigación y el aprendizaje.
 
-En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un calendario en el que se muestre algunos de los ganadores del Premio Nobel.
+En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un calendario en el que se muestre los ganadores de algún Premio Nobel.
 
 Este proyecto consiste en crear un calendario en el que se muestre una fotografía del ganador de un premio Nobel cuya fecha de nacimiento o fallecimiento coincida con la indicada. Toda esta información se extraerá de la enciclopedia libre, políglota y editada de manera colaborativa llamada [Wikipedia](https://es.wikipedia.org/).
 
@@ -16,7 +16,7 @@ Se va a utilizar una arquitectura de microservicios ya que nos permite crear, te
 
 En este proyecto, se puede diferenciar principalmente estos microservicios:
 
-- **Ganadores del Premio Nobel:** Se pretende obtener la lista de algunos ganadores del premio Nobel de la API de Wikipedia. 
+- **Ganadores del Premio Nobel:** Se pretende obtener la lista de los ganadores de algún premio Nobel de la API de Wikipedia. 
 
 - **Obtención de los datos de los ganadores:** La información de interés de cada uno de ellos se obtendrá también a partir de la API de Wikipedia, en formato [JSON](https://www.json.org/).
 
