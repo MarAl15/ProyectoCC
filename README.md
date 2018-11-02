@@ -32,7 +32,9 @@ En este proyecto, se puede diferenciar principalmente estos microservicios:
 
 A continuación se muestra un dibujo aclaratorio de la interrelación que existe entre estos:
 
-![esquema](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png)
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" scale="1">
+</p>
 
 
 Para la comunicación entre estos servicios se utilizarán _brokers_ a partir del sistema de manejo de colas [RabbitMQ](https://www.rabbitmq.com/).
