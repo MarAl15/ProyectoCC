@@ -1,13 +1,15 @@
 # [Proyecto](https://maral15.github.io/ProyectoCC/) de la asignatura de Cloud Computing
 
-Publicación de los ganadores del Premio Nobel de Física. 
+Calendario Premios Nobel. 
 
 ## Descripción
-En una época donde nos encontramos desbordados de información gracias a la web, la cultura científica se tiende a olvidar. Con este proyecto queremos volver a despertar la curiosidad científica en el ámbito de la física, a partir de los grandes descubridores que obtuvieron el Premio Nobel relacionada con esta rama, incitando a averiguar más sobre ellos y sobre su contribución a la ciencia, e impulsando la investigación y el aprendizaje.
+En una época donde nos encontramos desbordados de información gracias a la web, la cultura científica se tiende a olvidar. Con este proyecto queremos volver a despertar la curiosidad científica en algunos de los ámbitos de la ciencia, a partir de los grandes descubridores que obtuvieron el Premio Nobel, incitando a averiguar más sobre ellos y sobre su contribución a la ciencia, e impulsando la investigación y el aprendizaje.
 
-En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un servicio que muestre los ganadores del Premio Nobel de Física.
+En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un calendario en el que se muestre algunos de los ganadores del Premio Nobel.
 
-Este proyecto consiste en publicar una fotografía, acompañada de información relevante, del ganador de un premio Nobel de Física cuya fecha de nacimiento o fallecimiento coincida con la actual. Toda esta información se extraerá de la enciclopedia libre, políglota y editada de manera colaborativa, [Wikipedia](https://es.wikipedia.org/).
+Este proyecto consiste en crear un calendario en el que se muestre una fotografía del ganador de un premio Nobel cuya fecha de nacimiento o fallecimiento coincida con la indicada. Toda esta información se extraerá de la enciclopedia libre, políglota y editada de manera colaborativa llamada [Wikipedia](https://es.wikipedia.org/).
+
+Para una mayor utilidad de este, se ha decidido añadir la posibilidad de especificar tareas simples como reuniones, días de laboratorio (para las carreras universitarias de biología, medicina...) o cualquier otra cita importante, estableciendo una hora e incorporando (si desea) una pequeña nota con aclaraciones.
 
 ## Arquitectura
 Se va a utilizar una arquitectura de microservicios ya que nos permite crear, testear y desplegar de forma independiente cada servicio, proporcionándonos mayor versatilidad y facilidad para integrar.
