@@ -1,3 +1,5 @@
+[![Status](https://img.shields.io/badge/Status-Documenting-green.svg)](https://github.com/MarAl15/ProyectoCC/blob/master/README.md)
+
 # [Proyecto](https://maral15.github.io/ProyectoCC/) de la asignatura de Cloud Computing
 
 ## Calendario Premios Nobel. 
