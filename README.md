@@ -18,7 +18,7 @@ En este proyecto, se puede diferenciar cuatro microservicios principalmente:
 
 - **Obtención de los datos de los ganadores:** La información de interés de cada uno de ellos se obtendrá también a partir de la API de Wikipedia, en formato [JSON](https://www.json.org/).
 
-- **Almacenamiento de la información:** Se almacenará los datos de los ganadores de este premio universalmente conocido utilizando una base de datos [MongoDB](https://www.mongodb.com/es) ya que nos ofrece mayor flexibilidad.
+- **Almacenamiento de la información:** Los datos relevantes relacionadas con los ganadores de este premio universalmente conocido se almacenarán utilizando el sistema de base de datos NoSQL [MongoDB](https://www.mongodb.com/es) ya que nos ofrece mayor flexibilidad.
 
 - **Publicación de la información de interés:** Cada día se comprobará si coincide la fecha de nacimiento o defunción de alguno de los galardonados, y en caso de que exista, se publicará algunos de los datos relevantes de este.
 
