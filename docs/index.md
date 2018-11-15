@@ -30,11 +30,9 @@ A continuación se muestra un dibujo aclaratorio de la interrelación que existe
 <img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" scale="1">
 </p>
 
-Para la comunicación entre estos servicios se utilizarán _brokers_ a partir del sistema de manejo de colas [RabbitMQ](https://www.rabbitmq.com/).
+Para la comunicación entre estos servicios se utilizarán _brokers_ a partir del sistema de manejo de colas [RabbitMQ](https://www.rabbitmq.com/). Para acceder a la información de Wikipedia nos ayudaremos de [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/es) y del asistente de consultas [Wikidata Query](https://query.wikidata.org/).
 
-Por último, cabe destacar que este proyecto se realizará empleando [Python](https://www.python.org/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Flask](http://flask.pocoo.org/), elegido por su sencillez y facilidad de uso.
-
-Para acceder a la información de Wikipedia nos ayudaremos de [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/es) y del asistente de consultas [Wikidata Query](https://query.wikidata.org/).
+Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/)
 
 
 
