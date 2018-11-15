@@ -1,5 +1,5 @@
 [![Status](https://img.shields.io/badge/Status-Documenting-green.svg)](https://github.com/MarAl15/ProyectoCC/blob/master/README.md)
-[![Language](https://img.shields.io/badge/Language-Python-blue.svg)](https://www.python.org/)
+[![Language](https://img.shields.io/badge/Language-Node.js-blue.svg)](https://https://nodejs.org/es/)
 [![DBMS](https://img.shields.io/badge/DBMS-MongoDB-orange.svg)](https://www.mongodb.com/es)
 [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://github.com/MarAl15/ProyectoCC/blob/master/LICENSE)
 # [Proyecto](https://maral15.github.io/ProyectoCC/) de la asignatura de Cloud Computing
@@ -39,7 +39,7 @@ A continuación se muestra un dibujo aclaratorio de la interrelación que existe
 
 Para la comunicación entre estos servicios se utilizarán _brokers_ a partir del sistema de manejo de colas [RabbitMQ](https://www.rabbitmq.com/). Para acceder a la información de Wikipedia nos ayudaremos de [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/es) y del asistente de consultas [Wikidata Query](https://query.wikidata.org/).
 
-Por último, cabe destacar que este proyecto se realizará empleando [Python](https://www.python.org/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Flask](http://flask.pocoo.org/), elegido por su sencillez y facilidad de uso.
+Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/)
 
 
 
