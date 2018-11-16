@@ -79,7 +79,7 @@ describe( "POST App", function() {
 
 
 describe( "DELETE App", function() {
-	it('Creación', function (done) {
+	it('Eliminación', function (done) {
 	request(app)
 		.delete('/Tareas/0')
 		.expect('Content-Type', /json/)
