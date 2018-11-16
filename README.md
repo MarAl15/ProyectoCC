@@ -41,7 +41,7 @@ Para la comunicación entre estos servicios se utilizarán _brokers_ a partir de
 
 Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/).
 
-### Desplegar
+### Despliegue
 
 Despliegue: https://calprenob.herokuapp.com/
 
