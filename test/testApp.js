@@ -44,29 +44,30 @@ describe( "PUT App", function() {
 describe( "POST App", function() {
 	it('Modificación acontecimiento', function (done) {
 	request(app)
-		.post('/Tareas/0/Laboratorio')
+		.post('/Tareas/0/acontecimiento=Laboratorio')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación día', function (done) {
 	request(app)
-		.post('/Tareas/0//11-01-2019')
+		.post('/Tareas/0/fecha=11-01-2019')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación hora', function (done) {
 	request(app)
-		.post('/Tareas/0///16:00')
+		.post('/Tareas/0/hora=16:00')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 
 	it('Error id', function (done) {
 	request(app)
-		.post('/Tareas')
-		.expect(404, done);
+		.post('/Tareas/790/acontecimiento=Cita')
+		.expect('Content-Type', /json/)
+		.expect(405, done);
 	});
 	
 	it('Error', function (done) {
@@ -81,14 +82,15 @@ describe( "DELETE App", function() {
 	it('Creación', function (done) {
 	request(app)
 		.delete('/Tareas/0')
-		.expect('Content-Type', "text/html; charset=utf-8")
+		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Error id', function (done) {
 	request(app)
 		.delete('/Tareas/790')
-		.expect(404, done);
+		.expect('Content-Type', /json/)
+		.expect(405, done);
 	});
 
 	it('Error', function (done) {
