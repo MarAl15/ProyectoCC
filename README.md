@@ -41,7 +41,9 @@ Para la comunicación entre estos servicios se utilizarán _brokers_ a partir de
 
 Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/).
 
-### Despliegue
+### Desplegar
+
+Despliegue: https://calprenob.herokuapp.com/
 
 Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/), en vez de [zeit](https://zeit.co/) u [OpenShift](https://www.openshift.com/), ya que soporta distintos lenguajes de programación, es gratuito, ofrece una gran facilidad de uso y me dieron de alta antes que OpenShift, por lo que pude empezar a utilizarlo antes. Heroku permite a los desarrolladores de aplicaciones pasar el 100% de su tiempo en el código de su aplicación, no en administrar servidores u otras tareas no relacionadas directamente con el proyecto.
 
@@ -49,7 +51,6 @@ Pero antes de desplegar debemos verificar que el código es correcto, por lo que
 
 Para más información acerca del microservicio desplegado consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
 
-Despliegue: https://calprenob.herokuapp.com/
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
