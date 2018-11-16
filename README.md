@@ -43,7 +43,7 @@ Por último, cabe destacar que este proyecto se realizará empleando [Node.js](h
 
 ### Despliegue
 
-Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/), en vez de [zeit](https://zeit.co/) u [OpenShift](https://www.openshift.com/), ya que soporta distintos lenguajes de programación, es gratuito, ofrece una gran facilidad de uso y me dieron de alta antes que OpenShift, por lo que pude empezar a utilizarlo antes. Heroku permite a los desarrolladores de aplicaciones pasar el 100% de su tiempo en el código de su aplicación, no en administrar servidores u otras tareas no relacionadas directamente.
+Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/), en vez de [zeit](https://zeit.co/) u [OpenShift](https://www.openshift.com/), ya que soporta distintos lenguajes de programación, es gratuito, ofrece una gran facilidad de uso y me dieron de alta antes que OpenShift, por lo que pude empezar a utilizarlo antes. Heroku permite a los desarrolladores de aplicaciones pasar el 100% de su tiempo en el código de su aplicación, no en administrar servidores u otras tareas no relacionadas directamente con el proyecto.
 
 Pero antes de desplegar debemos verificar que el código es correcto, por lo que se utiliza [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyectos de código abierto.
 
