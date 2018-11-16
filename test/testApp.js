@@ -2,7 +2,7 @@ var request = require('supertest'),
 app = require('../src/app.js');
 
 
-describe( "GET Calendario", function() {
+describe( "GET App", function() {
 	it('Devolución de la dirección raíz', function (done) {
 	request(app)
 		.get('/')
@@ -10,89 +10,90 @@ describe( "GET Calendario", function() {
 		.expect(200, done);
 	});
 
-	it('Devolución calendario', function (done) {
+	it('Devolución tareas', function (done) {
 	request(app)
-		.get('/Calendario')
+		.get('/Tareas')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Error', function (done) {
 	request(app)
-		.get('/Calendario/DiezNegritos')
+		.get('/Tareas/DiezNegritos')
 		.expect(404, done);
 	});
 });
 
-describe( "PUT Calendario", function() {
+
+describe( "PUT App", function() {
 	it('Creación', function (done) {
 	request(app)
-		.put('/Calendario/Reunion/12-12-2018/13:00')
+		.put('/Tareas/Reunion/12-12-2018/13:00')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 
 	it('Error', function (done) {
 	request(app)
-		.put('/Calendario')
+		.put('/Tareas')
 		.expect(404, done);
 	});
 });
 
 
-describe( "POST Calendario", function() {
+describe( "POST App", function() {
 	it('Modificación acontecimiento', function (done) {
 	request(app)
-		.post('/Calendario/0/Laboratorio')
+		.post('/Tareas/0/Laboratorio')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación día', function (done) {
 	request(app)
-		.post('/Calendario/0//11-01-2019')
+		.post('/Tareas/0//11-01-2019')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación hora', function (done) {
 	request(app)
-		.post('/Calendario/0///16:00')
+		.post('/Tareas/0///16:00')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 
 	it('Error id', function (done) {
 	request(app)
-		.post('/Calendario')
+		.post('/Tareas')
 		.expect(404, done);
 	});
 	
 	it('Error', function (done) {
 	request(app)
-		.post('/Calendario')
+		.post('/Tareas')
 		.expect(404, done);
 	});
 });
 
 
-describe( "DELETE Calendario", function() {
+describe( "DELETE App", function() {
 	it('Creación', function (done) {
 	request(app)
-		.delete('/Calendario/0')
+		.delete('/Tareas/0')
 		.expect('Content-Type', "text/html; charset=utf-8")
 		.expect(200, done);
 	});
 	
 	it('Error id', function (done) {
 	request(app)
-		.delete('/Calendario/790')
+		.delete('/Tareas/790')
 		.expect(404, done);
 	});
 
 	it('Error', function (done) {
 	request(app)
-		.delete('/Calendario')
+		.delete('/Tareas')
 		.expect(404, done);
 	});
 });
