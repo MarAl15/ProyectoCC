@@ -41,7 +41,15 @@ Para la comunicación entre estos servicios se utilizarán _brokers_ a partir de
 
 Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/).
 
+### Despliegue
 
+Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/) ya que soporta distintos lenguajes de programación, es gratuito y ofrece una gran facilidad de uso. 
+
+Pero antes de desplegar debemos verificar que el código es correcto, por lo que se usa [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyetos de código abierto.
+
+Para más información acerca del despliegue consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
+
+Despliegue: https://calprenob.herokuapp.com/
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
