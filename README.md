@@ -43,11 +43,11 @@ Por último, cabe destacar que este proyecto se realizará empleando [Node.js](h
 
 ### Despliegue
 
-Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/) ya que soporta distintos lenguajes de programación, es gratuito y ofrece una gran facilidad de uso. 
+Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/), en vez de zeit, BlueMix u OpenShift, ya que soporta distintos lenguajes de programación, es gratuito y ofrece una gran facilidad de uso.  Además Heroku permite a los desarrolladores de aplicaciones pasar el 100% de su tiempo en el código de su aplicación, no en administrar servidores, implementación...
 
-Pero antes de desplegar debemos verificar que el código es correcto, por lo que se usa [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyetos de código abierto.
+Pero antes de desplegar debemos verificar que el código es correcto, por lo que se utiliza [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyectos de código abierto.
 
-Para más información acerca del despliegue consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
+Para más información acerca del microservicio desplegado consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
 
 Despliegue: https://calprenob.herokuapp.com/
 
