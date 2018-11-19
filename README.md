@@ -33,11 +33,17 @@ En este proyecto, se puede diferenciar principalmente estos microservicios:
 A continuación se muestra un dibujo aclaratorio de la interrelación que existe entre estos:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" scale="1">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" height="400">
 </p>
 
 
-Para la comunicación entre estos servicios se utilizarán _brokers_ a partir del sistema de manejo de colas [RabbitMQ](https://www.rabbitmq.com/). Para acceder a la información de Wikipedia nos ayudaremos de [MediaWiki](https://www.mediawiki.org/wiki/MediaWiki/es) y del asistente de consultas [Wikidata Query](https://query.wikidata.org/).
+Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje. Para conseguir este objetivo, el servicio _productor_ envía mensajes a un agente de enrutamiento de mensajes (_exchange_) que se encarga de aceptar estos y dirigirlos a colas de mensajes. Estos mensajes permanecerán en la cola hasta que sean manejados por un servicio _consumidor_, que se ocupará de procesar el mensaje.
+
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/broker.png" height="370">
+</p>
+
+#### Lenguaje y microframework
 
 Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/).
 
