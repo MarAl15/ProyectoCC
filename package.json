@@ -3,7 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/app.js",
+    "start": "forever start src/app.js",
+    "stop": "forever stopall",
     "test": "mocha"
   },
   "dependencies": {
