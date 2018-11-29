@@ -33,14 +33,14 @@ En este proyecto, se puede diferenciar principalmente estos microservicios:
 A continuación se muestra un dibujo aclaratorio de la interrelación que existe entre estos:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" height="400">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" height="450">
 </p>
 
 
-Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje. Para conseguir este objetivo, el servicio _productor_ envía mensajes a un agente de enrutamiento de mensajes (_exchange_) que se encarga de aceptar estos y dirigirlos a colas de mensajes. Estos mensajes permanecerán en la cola hasta que sean manejados por un servicio _consumidor_, que se ocupará de procesar el mensaje.
+Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje. Para conseguir este objetivo, el servicio _productor_ envía mensajes a un agente de enrutamiento de mensajes (_exchange_) que se encarga de dirigirlos a colas de mensajes. Estos mensajes permanecerán en la cola hasta que sean manejados por un servicio _consumidor_, que se ocupará de procesar el mensaje.
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/broker.png" height="370">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/broker.png" height="300">
 </p>
 
 #### Lenguaje y microframework
