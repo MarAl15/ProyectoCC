@@ -2,13 +2,13 @@ var express = require('express');
 var app = express();
 
 var tareas = require("./GestionTareas.js");
-var version = "2.0.0",
+var version = "2.0.1",
 	error405 = "ERROR Method Not Allowed",
 	ok = "OK",
 	lista_tareas = new tareas.GestionTareas();
 
 // Establecer el puerto dependiendo del PaaS que sea
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 80));
 app.use(express.static(__dirname + '/public'));
 
 // Mostrar que funciona
