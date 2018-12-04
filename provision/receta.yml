@@ -41,6 +41,5 @@
         path: "{{ directorio }}"
         
     - name: Ejecución de la aplicación
-      become_method: sudo 
       shell: cd {{directorio }}; npm start
         
