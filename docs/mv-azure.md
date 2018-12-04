@@ -2,9 +2,9 @@
 
 Se ha creado una máquina virtual en Azure con la siguiente configuración:
 
-- Nombre del equipo: ubuntu16
+- **Nombre del equipo:** ubuntu16
 
-- Sistema Operativo: Ubuntu Server 16.04 LTS 
+- **Sistema Operativo:** Ubuntu Server 16.04 LTS 
 
 Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para esta debido a su popularidad entre la comunidad.
 <!-- 
@@ -22,25 +22,25 @@ La versión 16.04 se eligió ya que para versiones anteriores se probó, pero ac
 
 Por último, cabe notar que LTS (_Long Term Service_) nos ofrece un soporte de hasta 5 años.
 
-- Ubicación: Centro de Francia
+- **Ubicación:** Centro de Francia
 
 Se ha elegido la región más cercana posible para intentar que la conexión presente menos latencia.
 
-- Tamaño: B1s estándar (1 vcpu, 1GB de memoria)
+- **Tamaño:** B1s estándar (1 vcpu, 1GB de memoria)
  
 Este tamaño nos proporciona 1 CPU virtual, 1 GB de memoria RAM, 2 discos de datos, 400 E/S máxima por segundo, 4 GB de almacenamiento temporal y con un costo estimado de 8.16€ (0.0110€/h).
 
 Se ha seleccionado este paquete ya que a pesar de que nos ofrece menos recursos es suficiente para la aplicación a desplegar y es el más barato.
 
-- Tipo de autentificación: Clave pública SSH
+- **Tipo de autentificación:** Clave pública SSH
 
 Por comodidad, evitando así el uso de contraseña.
 
-- Nombre de usuario: usuario
+- **Nombre de usuario:** usuario
 
-- Puertos de entrada públicos: HTTP(80), SSH(22)
+- **Puertos de entrada públicos:** HTTP(80), SSH(22)
 
 A través del puerto de SSH se puede realizar el aprovisionamiento de la máquina virtual con Ansible, mientras que a través del puerto 80 accedemos a la aplicación desplegada.
 
-- Dirección IP pública: Estática
+- **Dirección IP pública:** Estática
 
