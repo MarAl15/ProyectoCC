@@ -1,14 +1,16 @@
 {
   "name": "CalPreNob",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
-    "start": "forever start src/app.js",
-    "stop": "forever stopall",
+    "start": "sudo forever start src/app.js",
+    "stop": "sudo forever stopall",
     "test": "mocha"
   },
   "dependencies": {
-    "express": "~4.16.0"
+    "express": "~4.16.0",
+    "request": "^2.88.0",
+    "wikidata-sdk": "^5.15.9"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
