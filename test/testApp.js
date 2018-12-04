@@ -17,6 +17,13 @@ describe( "GET App", function() {
 		.expect(200, done);
 	});
 	
+	it('Devolución galardonados física', function (done) {
+	request(app)
+		.get('/Tareas')
+		.expect('Content-Type', /json/)
+		.expect(200, done);
+	});
+	
 	it('Error', function (done) {
 	request(app)
 		.get('/Tareas/DiezNegritos')
