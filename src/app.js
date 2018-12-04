@@ -2,10 +2,13 @@ var express = require('express');
 var app = express();
 
 var tareas = require("./GestionTareas.js");
-var version = "2.0.1",
+var prenobfisica = require("./PreNobFisica.js");
+var version = "3.0.0",
 	error405 = "ERROR Method Not Allowed",
 	ok = "OK",
-	lista_tareas = new tareas.GestionTareas();
+	lista_tareas = new tareas.GestionTareas(),
+	fisica = new prenobfisica.PreNobFisica();
+	
 
 // Establecer el puerto dependiendo del PaaS que sea
 app.set('port', (process.env.PORT || 80));
@@ -33,6 +36,15 @@ app.get('/Tareas', function( req, response ) {
 								}
 							 );
 });
+
+// Mostrar la lista de ganadores del premio Nobel de Física
+app.get('/PreNobFisica', function( req, response ) {
+	response.status(200).send(
+								{ "status": ok,
+							  	  "Ganadores": fisica.getGalardonados()
+							  	}
+					);
+});/**/
 
 // Agregar una tarea
 app.put('/Tareas/:acontecimiento/:dia/:hora', function( req, response ) {
@@ -121,7 +133,7 @@ app.delete('/Tareas/:id', function( req, response ) {
 // Escucha en un puerto determinado
 if(!module.parent){
 	app.listen(app.get('port'), function() {
-		console.log("Node app is running at localhost:" + app.get('port'));
+		console.log("Node app is running"); //at localhost:" + app.get('port'));
 	});
 }
 
