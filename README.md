@@ -52,6 +52,8 @@ Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en un
 
 Dicha máquina se ha aprovisionado con todas las dependencias necesarias para poder desplegar nuestra aplicación. Los pasos seguidos para realizar este se pueden consultar [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision.md). 
 
+- [Comprobación de provisionamiento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision-adritake.md) a mi compañero [Adrián de la Torre Rodríguez](https://github.com/adritake)
+
 ### Avance de la aplicación (04/12/2018)
 
 Se ha introducido un nuevo servicio de extracción de la lista de científicos ganadores del Premio Nobel de Física hasta el momento.
