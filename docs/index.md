@@ -40,10 +40,16 @@ Para más información acerca del microservicio consulte [este enlace](https://g
 
 MV: 40.89.165.159
 
-Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en una máquina virtual creada en Azure siguiendo los pasos de [este tutorial](https://docs.microsoft.com/es-es/azure/virtual-machines/linux/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Flinux%2Ftoc.json). Para más información sobre la configuración de la máquina virtual utilizada se encuentra [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/mv-azure.md).
+Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en una máquina virtual creada en Azure siguiendo los pasos de [este tutorial](https://docs.microsoft.com/es-es/azure/virtual-machines/linux/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Flinux%2Ftoc.json). Para más información sobre la configuración de la máquina virtual consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/mv-azure.md).
 
 
 Dicha máquina se ha aprovisionado con todas las dependencias necesarias para poder desplegar nuestra aplicación. Los pasos seguidos para realizar este se pueden consultar [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision.md). 
+
+### Avance de la aplicación (04/12/2018)
+
+Se ha introducido un nuevo servicio de extracción de la lista de científicos ganadores del Premio Nobel de Física hasta el momento.
+
+Para más información sobre este microservicio consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/microservicios.md#ganadores-del-premio-nobel-de-f%C3%ADsica).
 
 
 ## Licencia
