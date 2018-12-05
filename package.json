@@ -3,8 +3,8 @@
   "version": "3.0.0",
   "private": true,
   "scripts": {
-    "start": "sudo forever start src/app.js",
-    "stop": "sudo forever stopall",
+    "start": "forever start src/app.js",
+    "stop": "forever stopall",
     "test": "mocha"
   },
   "dependencies": {
