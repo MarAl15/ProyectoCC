@@ -20,42 +20,37 @@ Se va a utilizar una arquitectura de microservicios ya que nos permite crear, te
 
 En este proyecto, se puede diferenciar principalmente estos microservicios:
 
-- **Ganadores del Premio Nobel:** Se pretende obtener la lista de los ganadores de algún premio Nobel de la API de Wikipedia. 
+- Ganadores del Premio Nobel
 
-- **Obtención de los datos de los ganadores:** La información de interés de cada uno de ellos se obtendrá también a partir de la API de Wikipedia, en formato [JSON](https://www.json.org/).
+- Almacenamiento de la información
 
-- **Almacenamiento de la información:** Tanto los datos relevantes relacionadas con los ganadores de este premio universalmente conocido como los relativos a las tareas simples se almacenarán utilizando el sistema de gestión de bases de datos NoSQL [MongoDB](https://www.mongodb.com/es) ya que nos ofrece mayor flexibilidad.
+- Gestión de tareas simples
 
-- **Gestión de tareas simples:** Se permite añadir tareas simples agregando el acontecimiento importante, la hora a la que se prevé que empieza y, si se desea, alguna nota complementaria. Por otro lado, también se puede modificar o eliminar dichas tareas.
-
-- **Gestión del calendario:** Se pretende visualizar las fotografías acompañadas de un pequeño texto que especifique el acontecimiento importante de un premiado relacionado con una fecha determinada, además de las tareas descritas por el usuario.
-
-A continuación se muestra un dibujo aclaratorio de la interrelación que existe entre estos:
-
-<p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/esquema.png" height="450">
-</p>
+- Gestión del calendario
 
 
-Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje. Para conseguir este objetivo, el servicio _productor_ envía mensajes a un agente de enrutamiento de mensajes (_exchange_) que se encarga de dirigirlos a colas de mensajes. Estos mensajes permanecerán en la cola hasta que sean manejados por un servicio _consumidor_, que se ocupará de procesar el mensaje.
-
-<p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/broker.png" height="300">
-</p>
+Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje.
 
 #### Lenguaje y microframework
 
-Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/), el cual proporciona varias facilidades funcionales. No se descarta la inclusión de otros lenguajes como puede ser [Python](https://www.python.org/).
+Por último, cabe destacar que este proyecto se realizará empleando [Node.js](https://nodejs.org/es/) como lenguaje de programación principal, con ayuda de su microframework conocido como [Express](https://expressjs.com/es/).
 
 ### Despliegue
 
 Despliegue: https://calprenob.herokuapp.com/
 
-Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/), en vez de [zeit](https://zeit.co/) u [OpenShift](https://www.openshift.com/), ya que soporta distintos lenguajes de programación, es gratuito, ofrece una gran facilidad de uso y me dieron de alta antes que OpenShift, por lo que pude empezar a utilizarlo antes. Heroku permite a los desarrolladores de aplicaciones pasar el 100% de su tiempo en el código de su aplicación, no en administrar servidores u otras tareas no relacionadas directamente con el proyecto.
+Para el despliegue del microservicio se ha utilizado [Heroku](https://www.heroku.com/). Pero antes de desplegar dicho microservicio debemos de verificar que el código es correcto, por lo que se utiliza [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyectos de código abierto.
 
-Pero antes de desplegar debemos verificar que el código es correcto, por lo que se utiliza [Travis CI](https://travis-ci.org/), un servicio distribuido de integración continua que se usa en GitHub para levantar y realizar pruebas sobre el software cada vez que se hace un `push`, siendo gratuito para proyectos de código abierto.
+Para más información acerca del microservicio consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/microservicios.md#gesti%C3%B3n-de-tareas) y para la explicación más detallada del despliegue acceda [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
 
-Para más información acerca del microservicio desplegado consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/despliegue.md).
+### Aprovisionamiento
+
+MV: 40.89.165.159
+
+Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en una máquina virtual creada en Azure siguiendo los pasos de [este tutorial](https://docs.microsoft.com/es-es/azure/virtual-machines/linux/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Flinux%2Ftoc.json). Para más información sobre la configuración de la máquina virtual utilizada se encuentra [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/mv-azure.md).
+
+
+Dicha máquina se ha aprovisionado con todas las dependencias necesarias para poder desplegar nuestra aplicación. Los pasos seguidos para realizar este se pueden consultar [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision.md). 
 
 
 ## Licencia
