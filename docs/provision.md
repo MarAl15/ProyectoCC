@@ -51,7 +51,7 @@ ubuntu16 | SUCCESS => {
 
 ## Playbook
 
-Para el despliegue de nuestra aplicación se ha creado el siguiente _playbook_ [receta.yml](https://github.com/MarAl15/ProyectoCC/blob/master/provision/receta.yml):
+Para el despliegue de nuestra aplicación se ha creado el _playbook_ [receta.yml](https://github.com/MarAl15/ProyectoCC/blob/master/provision/receta.yml):
 
 ```yaml
 ---
@@ -126,13 +126,13 @@ En esta _playbook_ se realizan los siguientes pasos:
 Finalmente se comprueba que funciona:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/77d30302d3269890acf83c3c72db33e988bb1581/docs/images/provisionamiento-mio.png" height="450">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/77d30302d3269890acf83c3c72db33e988bb1581/docs/images/provisionamiento-mio.png" height="600">
 </p>
 
 Se puede observar que se han realizado todas las tareas satisfactoriamente. Comprobamos ahora que se ha desplegado correctamente nuestra aplicación accediendo a la dirección IP de la máquina virtual creada en Azure desde el navegador:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/77d30302d3269890acf83c3c72db33e988bb1581/docs/images/comprobacion1-mio.png" height="450">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/77d30302d3269890acf83c3c72db33e988bb1581/docs/images/comprobacion1-mio.png" weight="450">
 </p>
 
 <p align="center">
