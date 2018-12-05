@@ -53,7 +53,8 @@ Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en un
 Dicha máquina se ha aprovisionado con todas las dependencias necesarias para poder desplegar nuestra aplicación. Los pasos seguidos para realizar este se pueden consultar [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision.md). 
 
 - [Comprobación de provisionamiento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision-adritake.md) a mi compañero [Adrián de la Torre Rodríguez](https://github.com/adritake)
-- Aprovisionamiento comprobado por [Adrián de la Torre Rodríguez](https://github.com/adritake) en este [documento](https://github.com/adritake/CC_UGR_Personal/blob/master/docs/Provision.md)
+- Aprovisionamiento comprobado por [Adrián de la Torre Rodríguez](https://github.com/adritake) en este [documento](
+https://github.com/adritake/CC_UGR_Personal/blob/master/docs/Provision.md#comprobaci%C3%B3n-de-provisi%C3%B3n-de-un-compa%C3%B1ero)
 
 ### Avance de la aplicación (04/12/2018)
 
