@@ -4,11 +4,11 @@
 
 Se ha creado un microservicio simplificado para la gestión de tareas con la ayuda de express y Node.js, implementando dos clases:
 
-- `Tarea:` donde almacenamos el acontecimiento importante que queremos recordar, y la fecha y la hora de inicio de este. Un objeto de tipo `Tarea` nos permite, una vez creado, la modificación y consulta de dichos atributos.
+- [`Tarea:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) donde almacenamos el acontecimiento importante que queremos recordar, y la fecha y la hora de inicio de este. Un objeto de tipo `Tarea` nos permite, una vez creado, la modificación y consulta de dichos atributos.
 
-- `GestionTareas:` formado por una lista de tareas, inicialmente vacía, donde podemos insertar, consultar, modificar o eliminar alguna tarea, además de consultar todas las almacenadas hasta dicho momento.
+- [`GestionTareas:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/GestionTareas.js) formado por una lista de tareas, inicialmente vacía, donde podemos insertar, consultar, modificar o eliminar alguna tarea, además de consultar todas las almacenadas hasta dicho momento.
 
-Además también se ha implementado en el fichero `app.js` un servicio web que permite realizar las siguientes operaciones:
+Además también se ha implementado en el fichero [`app.js`](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) un servicio web que permite realizar las siguientes operaciones:
 
 - Operación GET para mostrar la versión y las tareas almacenadas hasta el momento, accediendo a través de la ruta `/Tareas`.
 
@@ -25,13 +25,13 @@ Dichas operaciones devuelven el estado de código correspondiente y, en caso de 
 
 ## Ganadores del premio Nobel de Física
 
-Se ha desarrollado un microservicio para extraer los ganadores del premio Nobel de Física de la Wikidata, para ello se ha creado la clase `PreNobFisica` donde se puede consultar los datos relacionados con los galardonados:
+Se ha desarrollado un microservicio para extraer los ganadores del premio Nobel de Física de la Wikidata, para ello se ha creado la clase [`PreNobFisica`](https://github.com/MarAl15/ProyectoCC/blob/master/src/PreNobFisica.js) donde se puede consultar los datos relacionados con los galardonados:
 
 - Nombre del científico premiado
 - Fecha de nacimiento 
 - Fecha de defunción (en caso de que haya fallecido)
 
-Además también se ha implementado en el fichero `app.js` una operación GET para la consulta de dicha lista, mediante la ruta `/PreNobFisica`.
+Además también se ha implementado en el fichero [`app.js`](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) una operación GET para la consulta de dicha lista, mediante la ruta `/PreNobFisica`.
 
 # Verificación
 
