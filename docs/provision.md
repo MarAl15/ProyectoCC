@@ -3,7 +3,7 @@
 Como se nos explica en el [seminario de "Introducción a Ansible"](https://www.youtube.com/watch?v=gFd9aj78_SM&feature=youtu.be), Ansible es un sistema de gestión remota de configuración que permite trabajar simultáneamente miles de sistemas diferentes. Está escrito en Python y para la descripción de las configuraciones de los sistemas usa YAML. Ansible simplemente tiene que estar instalado en el _anfitrión_ y permite que en la máquina virtual que vayamos a aprovisionar no tenga nada instalado, salvo Python.
 
 <!--https://blog.deiser.com/es/primeros-pasos-con-ansible-->
-Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad [[2](https://blog.deiser.com/es/primeros-pasos-con-ansible)].
+Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad [[1](https://blog.deiser.com/es/primeros-pasos-con-ansible)].
 
 ## Configuración Ansible
 
