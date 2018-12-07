@@ -15,8 +15,6 @@ host_key_checking = False
 inventory = ./ansible_hosts
 ```
 
-__Cabe notar que no es necesario copiar, descomentar y modificar, sino que se puede crear un fichero llamado `ansible.cfg` desde cero con esas tres líneas.__
-
 Como podemos observar tiene dos partes claras:
 
 1. Se evita que al conectarnos por SSH a la máquina virtual se haga una comprobación del host.
@@ -140,5 +138,8 @@ Se puede observar que se han realizado todas las tareas satisfactoriamente. Comp
 </p>
 
 
-
+## Referencias principales
+- [Seminario de "Introducción a Ansible"](https://www.youtube.com/watch?v=gFd9aj78_SM&feature=youtu.be)
+- [Tema "Provisionamiento en infraestructuras virtuales"](https://jj.github.io/CC/documentos/temas/Provision)
+- [Documentación oficial _playbook_ Ansible](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html)
 
