@@ -1,13 +1,13 @@
 # Aprovisionamiento
 
-Ansible es un sistema de gestión remota de configuración que permite trabajar simultáneamente miles de sistemas diferentes. Está escrito en Python y para la descripción de las configuraciones de los sistemas usa YAML. Ansible simplemente tiene que estar instalado en el _anfitrión_ y permite que en la máquina virtual que vayamos a aprovisionar no tenga nada instalado, salvo Python.
+Como se nos explica en el [seminario de "Introducción a Ansible"](https://www.youtube.com/watch?v=gFd9aj78_SM&feature=youtu.be), Ansible es un sistema de gestión remota de configuración que permite trabajar simultáneamente miles de sistemas diferentes. Está escrito en Python y para la descripción de las configuraciones de los sistemas usa YAML. Ansible simplemente tiene que estar instalado en el _anfitrión_ y permite que en la máquina virtual que vayamos a aprovisionar no tenga nada instalado, salvo Python.
 
 <!--https://blog.deiser.com/es/primeros-pasos-con-ansible-->
-Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad.
+Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad [[2](https://blog.deiser.com/es/primeros-pasos-con-ansible)].
 
 ## Configuración Ansible
 
-Tras la instalación de Ansible, se se copia el fichero de *\etc\ansible\ansible.cfg* en el directorio donde vamos a trabajar, realizando las siguiente modificaciones:
+Siguiendo los pasos del [seminario](https://www.youtube.com/watch?v=gFd9aj78_SM&feature=youtu.be), tras la instalación de Ansible, se copia el fichero de *\etc\ansible\ansible.cfg* en el directorio donde vamos a trabajar, realizando las siguiente modificaciones:
 
 ```
 [dafaults]
@@ -104,7 +104,7 @@ Para el despliegue de nuestra aplicación se ha creado el _playbook_ [receta.yml
       shell: cd {{directorio }}; npm start
 ```
 
-El fichero yaml siempre se inicia con tres rayas que indican que es una página o un documento.
+El fichero YAML siempre se inicia con tres rayas que indican que es una página o un documento.
 
 Con el `-` indicamos que va a comenzar un array, con pares de tipo `clave: valor`.
 
