@@ -6,7 +6,7 @@ Se ha creado una máquina virtual en Azure con la siguiente configuración:
 
 - **Sistema Operativo:** Ubuntu Server 16.04 LTS 
 
-Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para esta debido a su popularidad entre la comunidad [[1](https://www.linuxadictos.com/debian-vs-ubuntu.html),[2](http://www.servidorinfo.info/que-servidor-os-elegir-en-2018-debian-server-vs-ubuntu-server/)].
+Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para esta debido a su popularidad entre la comunidad [[1](https://www.linuxadictos.com/debian-vs-ubuntu.html)].
 <!-- 
 https://www.linuxadictos.com/debian-vs-ubuntu.html
 http://www.servidorinfo.info/que-servidor-os-elegir-en-2018-debian-server-vs-ubuntu-server/ 
