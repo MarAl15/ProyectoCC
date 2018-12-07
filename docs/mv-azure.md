@@ -6,13 +6,13 @@ Se ha creado una máquina virtual en Azure con la siguiente configuración:
 
 - **Sistema Operativo:** Ubuntu Server 16.04 LTS 
 
-Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para esta debido a su popularidad entre la comunidad.
+Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para esta debido a su popularidad entre la comunidad [[1](https://www.linuxadictos.com/debian-vs-ubuntu.html),[2](http://www.servidorinfo.info/que-servidor-os-elegir-en-2018-debian-server-vs-ubuntu-server/)].
 <!-- 
 https://www.linuxadictos.com/debian-vs-ubuntu.html
 http://www.servidorinfo.info/que-servidor-os-elegir-en-2018-debian-server-vs-ubuntu-server/ 
 -->
 
-Por otra parte, Ubuntu Desktop es un sistema que por defecto viene con múltiples aplicaciones de oficina, sistema, multimedia enfocadas en un entorno grafico que tras cada actualización presenta mejoras mientras que Ubuntu Server es un sistema que ofrece por defecto una interfaz de línea de comandos mediante la cual podemos instalar aplicativos enfocados al desarrollo y administración de una organización como MySQL, Apache, Python, Node, entre muchos otros. Como en nuestro caso nos interesa un sistema operativo original lo más básica posible, optamos por la segunda opción.
+Por otra parte, como podemos leer [aquí](https://www.solvetic.com/page/recopilaciones/s/ordenadores/diferencias-entre-ubuntu-desktop-escritorio-y-ubuntu-server), Ubuntu Desktop es un sistema que por defecto viene con múltiples aplicaciones de oficina, sistema, multimedia enfocadas en un entorno grafico que tras cada actualización presenta mejoras; mientras que Ubuntu Server es un sistema que ofrece por defecto una interfaz de línea de comandos mediante la cual podemos instalar aplicativos enfocados al desarrollo y administración de una organización como MySQL, Apache, Python, Node, entre muchos otros. Como en nuestro caso nos interesa un sistema operativo original lo más básico posible, optamos por la segunda opción.
 
 <!--
 https://www.solvetic.com/page/recopilaciones/s/ordenadores/diferencias-entre-ubuntu-desktop-escritorio-y-ubuntu-server
