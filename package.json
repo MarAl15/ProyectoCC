@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "private": true,
   "scripts": {
-    "start": "forever src/app.js",
+    "start": "forever start src/app.js",
     "stop": "forever stopall",
     "test": "mocha"
   },
