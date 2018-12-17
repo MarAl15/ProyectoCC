@@ -1,5 +1,5 @@
 [azure]
-ubuntu16 ansible_ssh_port=22 ansible_ssh_host=40.89.165.159
+ubuntu18 ansible_ssh_port=22 ansible_ssh_host=40.89.153.203
 
 [azure:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
