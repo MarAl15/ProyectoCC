@@ -15,16 +15,6 @@ const Schema = mongoose.Schema;
 		`Hora` = hora a la que empieza.
 */
 
-// https://carlosazaustre.es/como-crear-una-api-rest-usando-node-js/
-
-/*
-https://docs.mongodb.com/manual/reference/operator/aggregation/hour/
-https://www.mongodb.com/blog/post/schema-design-for-time-series-data-in-mongodb
-https://stackoverflow.com/questions/17008683/doing-range-queries-in-mongoose-for-hour-day-month-year
-https://stackoverflow.com/questions/47887357/mongoose-query-for-hour-range-with-counter-filed/47893996
-
-https://docs.mongodb.com/manual/reference/bson-types/#document-bson-type-timestamp
-*/
 var tarea = new Schema({
 	Acontecimiento: { 
 		type: String, 
@@ -34,8 +24,7 @@ var tarea = new Schema({
 		type: String, 
 		required: [true, "Fecha no puede ser vacia"]
 	},
-	Hora: String	
-	//Notas: String
+	Hora: String
 });
 
 // Para guardarlo en una colección llamadas Tareas de mongodb
