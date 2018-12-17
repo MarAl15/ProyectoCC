@@ -2,36 +2,26 @@
 
 ## Gestión de tareas
 
-Se ha creado un microservicio simplificado para la gestión de tareas con la ayuda de express y Node.js, implementando dos clases:
+Se ha creado un microservicio simplificado para la gestión de tareas con la ayuda de express y Node.js, implementando la clase:
 
-- [`Tarea:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) donde almacenamos el acontecimiento importante que queremos recordar, y la fecha y la hora de inicio de este. Un objeto de tipo `Tarea` nos permite, una vez creado, la modificación y consulta de dichos atributos.
-
-- [`GestionTareas:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/GestionTareas.js) formado por una lista de tareas, inicialmente vacía, donde podemos insertar, consultar, modificar o eliminar alguna tarea, además de consultar todas las almacenadas hasta dicho momento.
+- [`Tarea:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) estructura para almacenar el acontecimiento importante que queremos recordar, la fecha y la hora de inicio de este. 
 
 Además también se ha implementado en el fichero [`app.js`](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) un servicio web que permite realizar las siguientes operaciones:
 
-- Operación GET para mostrar la versión y las tareas almacenadas hasta el momento, accediendo a través de la ruta `/Tareas`.
+- Operación GET para mostrar simplemente `status Ok`.
 
-- Operación PUT para agregar una tarea, mediante la ruta `/Tareas/:acontecimiento/:dia/:hora`.
+- Operación PUT para agregar una tarea, mediante la ruta `/Tareas/:acontecimiento/:dia-:mes-:anio/:hora::minutos`.
 
 - Operación POST para la modificación de algún atributo de la tarea identificada por su posición en la lista:
 	- Acontecimiento: `/Tareas/:id/acontecimiento=:acontecimiento'`
-	- Fecha: `/Tareas/:id/fecha=:dia`
-	- Hora de inicio: `/Tareas/:id/hora=:hora` 
+	- Fecha: `/Tareas/:id/fecha=:dia-:mes-:anio`
+	- Hora de inicio: `/Tareas/:id/hora=:hora::minutos` 
 	
 - Operación DELETE para la eliminación de la tarea especificada. Dicha eliminación se realiza mediante la ruta `/Tareas/:id`.
 
-Dichas operaciones devuelven el estado de código correspondiente y, en caso de ser una operación contemplada (las cuales devuelven el estado 200 ó 405) se retorna información en JSON.
+- Operación DELETE para la eliminación de todas las tareas almacenadas en la base de datos. Dicha eliminación se realiza mediante la ruta `/Tareas`.
 
-## Ganadores del premio Nobel de Física
-
-Se ha desarrollado un microservicio para extraer los ganadores del premio Nobel de Física de la Wikidata, para ello se ha creado la clase [`PreNobFisica`](https://github.com/MarAl15/ProyectoCC/blob/master/src/PreNobFisica.js) donde se puede consultar los datos relacionados con los galardonados:
-
-- Nombre del científico premiado
-- Fecha de nacimiento 
-- Fecha de defunción (en caso de que haya fallecido)
-
-Además también se ha implementado en el fichero [`app.js`](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) una operación GET para la consulta de dicha lista, mediante la ruta `/PreNobFisica`.
+Dichas operaciones devuelven el estado de código correspondiente y, en caso de ser una operación contemplada se retorna información en JSON.
 
 # Verificación
 
