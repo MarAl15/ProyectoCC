@@ -1,14 +1,15 @@
 {
   "name": "CalPreNob",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "private": true,
   "scripts": {
-    "start": "forever start src/app.js",
+    "start": "forever src/app.js",
     "stop": "forever stopall",
     "test": "mocha"
   },
   "dependencies": {
     "express": "~4.16.0",
+    "mongoose": "^5.4.0",
     "request": "^2.88.0",
     "wikidata-sdk": "^5.15.9"
   },
