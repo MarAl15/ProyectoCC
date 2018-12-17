@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntu16
+- hosts: ubuntu18
 
   vars:
     - directorio: ~/ProyectoCC
@@ -26,6 +26,26 @@
     - name: Instala forever
       become: yes
       npm: name=forever global=yes state=present
+    
+    - name: Importa la clave pública MongoDB
+      become: yes
+      shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
+
+    - name: Añade repositorio MongoDB
+      become: yes
+      shell: echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+
+    - name: Instala MongoDB
+      become: yes
+      apt:
+        name: mongodb-org
+        state: present
+
+    - name: Inicia MongoDB
+      become: yes
+      service:
+        name: mongod
+        state: started
       
     - name: Crea directorio del proyecto
       file: path={{ directorio }} state=directory
@@ -39,11 +59,4 @@
     - name: Instala dependencias basadas en package.json
       npm:
         path: "{{ directorio }}"
-    
-    - name: Redirige puertos
-      become: yes
-      shell: iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 5000
-
-    - name: Ejecución de la aplicación
-      shell: cd {{directorio }}; npm start
         
