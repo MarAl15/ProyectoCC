@@ -1,139 +1,123 @@
-var express = require('express');
-var app = express();
+const express = require('express'),
+	  app = express(),
+	  mongoose = require('mongoose');
 
-var tareas = require("./GestionTareas.js");
-var prenobfisica = require("./PreNobFisica.js");
-var version = "3.0.0",
-	error405 = "ERROR Method Not Allowed",
-	ok = "OK",
-	lista_tareas = new tareas.GestionTareas(),
-	fisica = new prenobfisica.PreNobFisica();
+const Tarea = require("./Tarea.js");
+
+// Conectando a la base de datos (Si no existe la base de datos MongoDB la crea por nosotros)
+mongoose.connect('mongodb://localhost/tareasdb', { useNewUrlParser: true })
+	.then(db => console.log('Conectado a la base de datos')) // Para verificar que se ha conectado. Si se conecta se va a generar un objeto de db pero no se va a utilizar, tan suelo se muestra un mensaje por consola
+	.catch(err => console.log(err)); // Si existe un error, lo mostramos por consola
 	
-
 // Establecer el puerto dependiendo del PaaS que sea
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 80));
 app.use(express.static(__dirname + '/public'));
 
 // Mostrar que funciona
-app.get('/', function(request, response) {
+app.get('/', function(request, response) {	
 	response.status(200).send(
 		{
-			"status": "OK",
-			"ejemplo": { "ruta": "/Tareas",
-						 "valor": { "Version": version,
-								  	"Tareas": lista_tareas.getTareas()
-								  }
-					   }
+			"status": "OK"
 		}
 	);
 });
 
 // Mostrar la versión del calendario y las tareas almacenadas hasta el momento
 app.get('/Tareas', function( req, response ) {
-	response.status(200).send(
-								{ "Version": version,
-								  "Tareas": lista_tareas.getTareas()
-								}
-							 );
+	Tarea.find(function(err, tareas) {
+		if(err) return response.status(500).send(err.message);
+
+		response.status(200).jsonp(tareas);
+	});
 });
 
-// Mostrar la lista de ganadores del premio Nobel de Física
-app.get('/PreNobFisica', function( req, response ) {
-	response.status(200).send(
-								{ "status": ok,
-							  	  "Ganadores": fisica.getGalardonados()
-							  	}
-					);
-});/**/
-
 // Agregar una tarea
-app.put('/Tareas/:acontecimiento/:dia/:hora', function( req, response ) {
-	lista_tareas.pushTarea(req.params.acontecimiento,req.params.dia,req.params.hora);
-	response.status(200).send(
-								{ "status": ok,
-							  	  "Mensaje": lista_tareas.getUltimaTarea()
-							  	}
-							 );
+app.put('/Tareas/:acontecimiento/:dia-:mes-:anio/:hora::minutos', function( req, response ) {
+	var tarea = new Tarea({
+		Acontecimiento: req.params.acontecimiento,
+		Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
+		Hora: req.params.hora+":"+req.params.minutos
+		//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
+	});
+	
+	tarea.save(function(err, tarea) {
+		if(err) return response.status(500).send(err.message);
+		
+    	response.status(200).jsonp(tarea);
+    });
 });
 
 
 // Modificar el acontecimiento de una tarea
 app.post('/Tareas/:id/acontecimiento=:acontecimiento', function( req, response ) {
-	if( lista_tareas.editAcontecimiento(req.params.id, req.params.acontecimiento) ){
-		response.status(200).send(
-								 	{ "status": ok,
-								  	  "Añadida": lista_tareas.getTarea(req.params.id)
-								  	}
-								 );
-	}
-	else{
-		response.status(405).send(
-									{ "status": error405,
-								  	  "Mensaje": "Tarea inexistente."
-								  	}
-								  );
-	}
-	
+	Tarea.findById(req.params.id, function(err, tarea) {
+		if(err) return response.status(500).send(err.message);
+		tarea.Acontecimiento = req.params.acontecimiento;
+
+		tarea.save(function(err) {
+			if(err) return response.status(500).send(err.message);
+      		response.status(200).jsonp(tarea);
+		});
+	});	
 });
 
 // Modificar el día de una tarea
-app.post('/Tareas/:id/fecha=:dia', function( req, response ) {
-	if( lista_tareas.editDia(req.params.id, req.params.dia) ){
-		response.status(200).send(
-								 	{ "status": ok,
-								  	  "Añadida": lista_tareas.getTarea(req.params.id)
-								  	}
-								 );
-	}
-	else{
-		response.status(405).send(
-									{ "status": error405,
-								  	  "Mensaje": "Tarea inexistente."
-								  	}
-								  );
-	}
+app.post('/Tareas/:id/fecha=:dia-:mes-:anio', function( req, response ) {
+	Tarea.findById(req.params.id, function(err, tarea) {
+		if(err) return response.status(500).send(err.message);
+		tarea.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
+
+		tarea.save(function(err) {
+			if(err) return response.status(500).send(err.message);
+      		response.status(200).jsonp(tarea);
+		});
+	});
 });
 
 // Modificar la hora de una tarea
-app.post('/Tareas/:id/hora=:hora', function( req, response ) {
-	if( lista_tareas.editHora(req.params.id, req.params.hora) ){
-		response.status(200).send(
-								 	{ "status": ok,
-								  	  "Añadida": lista_tareas.getTarea(req.params.id)
-								  	}
-								 );
-	}
-	else{
-		response.status(405).send(
-									{ "status": error405,
-								  	  "Mensaje": "Tarea inexistente."
-								  	}
-								  );
-	}
+app.post('/Tareas/:id/hora=:hora::minutos', function( req, response ) {
+	Tarea.findById(req.params.id, function(err, tarea) {
+		if(err) return response.status(500).send(err.message);
+		tarea.Hora = req.params.hora+":"+req.params.minutos;
+
+		tarea.save(function(err) {
+			if(err) return response.status(500).send(err.message);
+      		response.status(200).jsonp(tarea);
+		});
+	});
 });
 	
 // Eliminar una tarea
 app.delete('/Tareas/:id', function( req, response ) {
-	if( lista_tareas.deleteTarea(req.params.id) ){
-		response.status(200).send(
+	Tarea.findById(req.params.id, function(err, tarea) {
+		if(err) return response.status(500).send(err.message);
+		tarea.remove(function(err) {
+			if(err) return response.status(500).send(err.message);
+      		response.status(200).send(
+										{ "status": "OK",
+									  	  "Mensaje": "Tarea eliminada."
+									  	}
+									  );
+		})
+	});
+});
+
+// Eliminar todas las tarea
+app.delete('/Tareas', function( req, response ) {	
+	Tarea.deleteMany({}, function(err) {
+		if(err) return response.status(500).send(err.message);
+  		response.status(200).send(
 									{ "status": "OK",
-								  	  "Mensaje": "Tarea eliminada."
+								  	  "Mensaje": "Tareas eliminadas."
 								  	}
 								  );
-	}
-	else{
-		response.status(405).send(
-									{ "status": error405,
-								  	  "Mensaje": "Tarea inexistente."
-								  	}
-								  );
-	}
+	})
 });
 
 // Escucha en un puerto determinado
 if(!module.parent){
 	app.listen(app.get('port'), function() {
-		console.log("Node app is running");
+		console.log("CalPreNob ejecutandose...");
 	});
 }
 
