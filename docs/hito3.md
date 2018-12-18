@@ -115,7 +115,7 @@ Se puede observar que se han realizado todas las tareas satisfactoriamente.
 
 Finalmente desplegamos nuestra aplicación en la máquina virtual provisionada conectándonos por SSH a esta:
 ```console
-mar@mar-SATELLITE-L750:~/UGR/CC/ProyectoCC$ ssh usuario@40.89.153.203
+$ ssh usuario@40.89.153.203
 usuario@ubuntu18:~$ cd ProyectoCC/
 usuario@ubuntu18:~/ProyectoCC$ sudo npm start
 ```
