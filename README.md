@@ -49,7 +49,6 @@ MV: 40.89.153.203
 
 Para el aprovisionamiento se ha utilizado Ansible, desplegando el servicio en una máquina virtual creada en Azure siguiendo los pasos de [este tutorial](https://docs.microsoft.com/es-es/azure/virtual-machines/linux/quick-create-portal?toc=%2Fazure%2Fvirtual-machines%2Flinux%2Ftoc.json). Para más información sobre la configuración de la máquina virtual consulte [este enlace](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#m%C3%A1quina-virtual-azure).
 
-
 Dicha máquina se ha aprovisionado con todas las dependencias necesarias para poder desplegar nuestra aplicación. Los pasos seguidos para realizar este se pueden consultar [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#aprovisionamiento).
 
 - [Comprobación de provisionamiento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/provision-adritake.md) a mi compañero [Adrián de la Torre Rodríguez](https://github.com/adritake)
@@ -59,4 +58,3 @@ https://github.com/adritake/CC_UGR_Personal/blob/master/docs/Provision.md#compro
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
-
