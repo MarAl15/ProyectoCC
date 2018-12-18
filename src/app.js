@@ -22,7 +22,7 @@ app.get('/', function(request, response) {
 	);
 });
 
-// Mostrar la versión del calendario y las tareas almacenadas hasta el momento
+// Mostrar las tareas almacenadas hasta el momento
 app.get('/Tareas', function( req, response ) {
 	Tarea.find(function(err, tareas) {
 		if(err) return response.status(500).send(err.message);
@@ -102,7 +102,7 @@ app.delete('/Tareas/:id', function( req, response ) {
 	});
 });
 
-// Eliminar todas las tarea
+// Eliminar todas las tareas
 app.delete('/Tareas', function( req, response ) {	
 	Tarea.deleteMany({}, function(err) {
 		if(err) return response.status(500).send(err.message);
