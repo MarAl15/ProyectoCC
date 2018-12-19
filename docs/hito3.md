@@ -14,7 +14,7 @@ Por último, cabe notar que se utiliza la última versión de soporte extendido 
 
 - **Ubicación:** Centro de Francia
 
-Se ha elegido la región que presenta menos latencia en media.
+Se ha elegido la región que presenta menos latencia en media [[2](https://azurespeedtest.azurewebsites.net/)].
 
 <p align="center">
 <img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/latencia-azure.png" height="350">
@@ -47,7 +47,7 @@ Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blo
 Como se nos explica en el [seminario de "Introducción a Ansible"](https://www.youtube.com/watch?v=gFd9aj78_SM&feature=youtu.be), Ansible es un sistema de gestión remota de configuración que permite trabajar simultáneamente con miles de sistemas diferentes. Está escrito en Python y para la descripción de las configuraciones de los sistemas usa YAML. Ansible simplemente tiene que estar instalado en el _anfitrión_ y permite que en la máquina virtual que vayamos a aprovisionar no tenga nada instalado, salvo Python.
 
 
-Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad [[2](https://blog.deiser.com/es/primeros-pasos-con-ansible)].
+Esta herramienta será usada para provisionar la máquina virtual creada en Azure debido a su sencillez de uso, a que no necesita agentes, no requiere configuraciones engorrosas y complicadas, y ofrece flexibilidad [[3](https://blog.deiser.com/es/primeros-pasos-con-ansible)].
 
 ### Configuración Ansible
 
@@ -97,9 +97,9 @@ Con el `-` indicamos que va a comenzar un array, con pares de tipo `clave-valor`
 En este _playbook_ se realizan los siguientes pasos:
 
 - Instalación de `git`.
-- Instalación de `Node.js`, instalando `curl` y agregando su PPA previamente.[[3](https://github.com/nodesource/distributions/blob/master/README.md)]
+- Instalación de `Node.js`, instalando `curl` y agregando su PPA previamente.[[4](https://github.com/nodesource/distributions/blob/master/README.md)]
 - Instalación de `forever` para poder ejecutar en segundo plano la aplicación.
-- Instalación de MongoDB, importanto previamente la clave pública y creando un archivo de lista para este.[[4](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)]
+- Instalación de MongoDB, importanto previamente la clave pública y creando un archivo de lista para este.[[5](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)]
 - Iniciación de MongoDB.
 - Creación del directorio donde se albergará el proyecto posteriormente.
 - Descarga de nuestro proyecto desde el repositorio.
