@@ -1,17 +1,17 @@
 var request = require('supertest'),
-	Tarea = require('../src/Tarea.js'),
+	Acontecimiento = require('../src/Acontecimiento.js'),
 	app = require('../src/app.js');
 	
 var ObjectId = require('mongodb').ObjectID;
 
-var esta_tarea = new Tarea({
+var esta_acontecimiento = new Acontecimiento({
 		_id: ObjectId("51c420ba77edcdc3ec709218"),
-		Acontecimiento: "Otro",
+		Etiqueta: "Otro",
 		Fecha: "11-10-2019",
 		Hora: "12:00"
 	});
 	
-esta_tarea.save();
+esta_acontecimiento.save();
 
 describe( "GET App", function() {
 	it('Devolución de la dirección raíz', function (done) {
@@ -21,16 +21,16 @@ describe( "GET App", function() {
 		.expect(200, done);
 	});
 
-	it('Devolución tareas', function (done) {
+	it('Devolución acontecimientos', function (done) {
 	request(app)
-		.get('/Tareas')
+		.get('/Acontecimientos')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Error', function (done) {
 	request(app)
-		.get('/Tareas/DiezNegritos')
+		.get('/Acontecimientos/DiezNegritos')
 		.expect(404, done);
 	});
 });
@@ -39,60 +39,60 @@ describe( "GET App", function() {
 describe( "PUT App", function() {
 	it('Creación', function (done) {
 	request(app)
-		.put('/Tareas/Reunion/12-12-2018/13:00')
+		.put('/Acontecimientos/Reunion/12-12-2018/13:00')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 
 	it('Error', function (done) {
 	request(app)
-		.put('/Tareas')
+		.put('/Acontecimientos')
 		.expect(404, done);
 	});
 });
 
 
 describe( "POST App", function() {
-	it('Modificación acontecimiento', function (done) {
+	it('Modificación etiqueta', function (done) {
 	request(app)
-		.post('/Tareas/51c420ba77edcdc3ec709218/acontecimiento=Laboratorio')
+		.post('/Acontecimientos/51c420ba77edcdc3ec709218/etiqueta=Laboratorio')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación día', function (done) {
 	request(app)
-		.post('/Tareas/51c420ba77edcdc3ec709218/fecha=11-01-2019')
+		.post('/Acontecimientos/51c420ba77edcdc3ec709218/fecha=11-01-2019')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Modificación hora', function (done) {
 	request(app)
-		.post('/Tareas/51c420ba77edcdc3ec709218/hora=16:00')
+		.post('/Acontecimientos/51c420ba77edcdc3ec709218/hora=16:00')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
-
+	
 	it('Error', function (done) {
 	request(app)
-		.post('/Tareas')
+		.post('/Acontecimientos')
 		.expect(404, done);
 	});
 });
 
 
 describe( "DELETE App", function() {
-	it('Eliminación Tarea', function (done) {
+	it('Eliminación acontecimiento', function (done) {
 	request(app)
-		.delete('/Tareas/51c420ba77edcdc3ec709218')
+		.delete('/Acontecimientos/51c420ba77edcdc3ec709218')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
 	
 	it('Eliminación completa', function (done) {
 	request(app)
-		.delete('/Tareas')
+		.delete('/Acontecimientos')
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});

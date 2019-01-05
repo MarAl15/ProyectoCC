@@ -2,10 +2,12 @@ const express = require('express'),
 	  app = express(),
 	  mongoose = require('mongoose');
 
-const Tarea = require("./Tarea.js");
+var error405 = "ERROR Method Not Allowed";
+	
+const Acontecimiento = require("./Acontecimiento.js");
 
 // Conectando a la base de datos (Si no existe la base de datos MongoDB la crea por nosotros)
-mongoose.connect('mongodb://localhost/tareasdb', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/acontecimientodb', { useNewUrlParser: true })
 	.then(db => console.log('Conectado a la base de datos')) // Para verificar que se ha conectado. Si se conecta se va a generar un objeto de db pero no se va a utilizar, tan suelo se muestra un mensaje por consola
 	.catch(err => console.log(err)); // Si existe un error, lo mostramos por consola
 	
@@ -22,93 +24,89 @@ app.get('/', function(request, response) {
 	);
 });
 
-// Mostrar las tareas almacenadas hasta el momento
-app.get('/Tareas', function( req, response ) {
-	Tarea.find(function(err, tareas) {
+// Mostrar los acontecimientos almacenados hasta el momento
+app.get('/Acontecimientos', function( req, response ) {
+	Acontecimiento.find(function(err, acontecimientos) {
 		if(err) return response.status(500).send(err.message);
 
-		response.status(200).jsonp(tareas);
+		response.status(200).jsonp(acontecimientos);
 	});
 });
 
-// Agregar una tarea
-app.put('/Tareas/:acontecimiento/:dia-:mes-:anio/:hora::minutos', function( req, response ) {
-	var tarea = new Tarea({
-		Acontecimiento: req.params.acontecimiento,
+// Agregar un acontecimiento
+app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( req, response ) {
+	var acontecimiento = new Acontecimiento({
+		Etiqueta: req.params.etiqueta,
 		Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
 		Hora: req.params.hora+":"+req.params.minutos
 		//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
 	});
 	
-	tarea.save(function(err, tarea) {
+	acontecimiento.save(function(err, acontecimiento) {
 		if(err) return response.status(500).send(err.message);
 		
-    	response.status(200).jsonp(tarea);
+    	response.status(200).jsonp(acontecimiento);
     });
 });
 
 
-// Modificar el acontecimiento de una tarea
-app.post('/Tareas/:id/acontecimiento=:acontecimiento', function( req, response ) {
-	Tarea.findById(req.params.id, function(err, tarea) {
-		if(err) return response.status(500).send(err.message);
-		tarea.Acontecimiento = req.params.acontecimiento;
+// Modificar el acontecimiento de un acontecimiento
+app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response ) {
+	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+		acontecimiento.Etiqueta = req.params.etiqueta;
 
-		tarea.save(function(err) {
+		acontecimiento.save(function(err) {
 			if(err) return response.status(500).send(err.message);
-      		response.status(200).jsonp(tarea);
-		});
-	});	
-});
-
-// Modificar el día de una tarea
-app.post('/Tareas/:id/fecha=:dia-:mes-:anio', function( req, response ) {
-	Tarea.findById(req.params.id, function(err, tarea) {
-		if(err) return response.status(500).send(err.message);
-		tarea.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
-
-		tarea.save(function(err) {
-			if(err) return response.status(500).send(err.message);
-      		response.status(200).jsonp(tarea);
+	  		response.status(200).jsonp(acontecimiento);
 		});
 	});
 });
 
-// Modificar la hora de una tarea
-app.post('/Tareas/:id/hora=:hora::minutos', function( req, response ) {
-	Tarea.findById(req.params.id, function(err, tarea) {
-		if(err) return response.status(500).send(err.message);
-		tarea.Hora = req.params.hora+":"+req.params.minutos;
+// Modificar el día de un acontecimiento
+app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response ) {
+	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+		acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
 
-		tarea.save(function(err) {
+		acontecimiento.save(function(err) {
 			if(err) return response.status(500).send(err.message);
-      		response.status(200).jsonp(tarea);
+	  		response.status(200).jsonp(acontecimiento);
+		});
+	});
+});
+
+// Modificar la hora de un acontecimiento
+app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response ) {
+	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+		acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
+
+		acontecimiento.save(function(err) {
+			if(err) return response.status(500).send(err.message);
+	  		response.status(200).jsonp(acontecimiento);
 		});
 	});
 });
 	
-// Eliminar una tarea
-app.delete('/Tareas/:id', function( req, response ) {
-	Tarea.findById(req.params.id, function(err, tarea) {
-		if(err) return response.status(500).send(err.message);
-		tarea.remove(function(err) {
+// Eliminar un acontecimiento
+app.delete('/Acontecimientos/:id', function( req, response ) {
+	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+		acontecimiento.remove(function(err) {
 			if(err) return response.status(500).send(err.message);
-      		response.status(200).send(
+	  			response.status(200).send(
 										{ "status": "OK",
-									  	  "Mensaje": "Tarea eliminada."
+									  	  "Mensaje": "Acontecimiento eliminado correctamente."
 									  	}
 									  );
 		})
 	});
 });
 
-// Eliminar todas las tareas
-app.delete('/Tareas', function( req, response ) {	
-	Tarea.deleteMany({}, function(err) {
+// Eliminar todas los acontecimientos almacenados
+app.delete('/Acontecimientos', function( req, response ) {	
+	Acontecimiento.deleteMany({}, function(err) {
 		if(err) return response.status(500).send(err.message);
   		response.status(200).send(
 									{ "status": "OK",
-								  	  "Mensaje": "Tareas eliminadas."
+								  	  "Mensaje": "Acontecimientos eliminados."
 								  	}
 								  );
 	})
