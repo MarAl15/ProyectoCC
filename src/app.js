@@ -27,9 +27,10 @@ app.get('/', function(request, response) {
 // Mostrar los acontecimientos almacenados hasta el momento
 app.get('/Acontecimientos', function( req, response ) {
 	Acontecimiento.find(function(err, acontecimientos) {
-		if(err) return response.status(500).send(err.message);
-
-		response.status(200).jsonp(acontecimientos);
+		// https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Control_de_flujo_y_manejo_de_errores
+		if (err) throw err;
+		else
+			response.status(200).jsonp(acontecimientos);
 	});
 });
 
@@ -43,9 +44,9 @@ app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( r
 	});
 	
 	acontecimiento.save(function(err, acontecimiento) {
-		if(err) return response.status(500).send(err.message);
-		
-    	response.status(200).jsonp(acontecimiento);
+		if (err) throw err;
+		else
+			response.status(200).jsonp(acontecimiento);
     });
 });
 
@@ -53,19 +54,23 @@ app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( r
 // Modificar el acontecimiento de un acontecimiento
 app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if(acontecimiento==null)
-			response.status(405).send(
-										{ "status": error405,
-									  	  "Mensaje": "ID no existente."
-									  	}
-									 );
+		if (err) throw err;
 		else{
-			acontecimiento.Etiqueta = req.params.etiqueta;
+			if(acontecimiento==null)
+				response.status(405).send(
+											{ "status": error405,
+										  	  "Mensaje": "ID no existente."
+										  	}
+										 );
+			else{
+				acontecimiento.Etiqueta = req.params.etiqueta;
 
-			acontecimiento.save(function(err) {
-				if(err) return response.status(500).send(err.message);
-		  		response.status(200).jsonp(acontecimiento);
-			});
+				acontecimiento.save(function(err) {
+					if (err) throw err;
+			  		else
+			  			response.status(200).jsonp(acontecimiento);
+				});
+			}
 		}
 	});
 });
@@ -73,19 +78,22 @@ app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response ) {
 // Modificar el día de un acontecimiento
 app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if(acontecimiento==null)
-			response.status(405).send(
-										{ "status": error405,
-									  	  "Mensaje": "ID no existente."
-									  	}
-									 );
+		if (err) throw err;
 		else{
-			acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
+			if(acontecimiento==null)
+				response.status(405).send(
+											{ "status": error405,
+										  	  "Mensaje": "ID no existente."
+										  	}
+										 );
+			else{
+				acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
 
-			acontecimiento.save(function(err) {
-				if(err) return response.status(500).send(err.message);
-		  		response.status(200).jsonp(acontecimiento);
-			});
+				acontecimiento.save(function(err) {
+					if (err) throw err;
+			  		response.status(200).jsonp(acontecimiento);
+				});
+			}
 		}
 	});
 });
@@ -93,19 +101,23 @@ app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response )
 // Modificar la hora de un acontecimiento
 app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if(acontecimiento==null)
-			response.status(405).send(
-										{ "status": error405,
-									  	  "Mensaje": "ID no existente."
-									  	}
-									 );
+		if (err) throw err;
 		else{
-			acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
+			if(acontecimiento==null)
+				response.status(405).send(
+											{ "status": error405,
+										  	  "Mensaje": "ID no existente."
+										  	}
+										 );
+			else{
+				acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
 
-			acontecimiento.save(function(err) {
-				if(err) return response.status(500).send(err.message);
-		  		response.status(200).jsonp(acontecimiento);
-			});
+				acontecimiento.save(function(err) {
+					if (err) throw err;
+			  		else
+			  			response.status(200).jsonp(acontecimiento);
+				});
+			}
 		}
 	});
 });
@@ -113,21 +125,25 @@ app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response ) {
 // Eliminar un acontecimiento
 app.delete('/Acontecimientos/:id', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if(acontecimiento==null)
-			response.status(405).send(
-										{ "status": error405,
-									  	  "Mensaje": "ID no existente."
-									  	}
-									 );
+		if (err) throw err;
 		else{
-			acontecimiento.remove(function(err) {
-				if(err) return response.status(500).send(err.message);
-		  		response.status(200).send(
-											{ "status": "OK",
-										  	  "Mensaje": "Acontecimiento eliminado correctamente."
+			if(acontecimiento==null)
+				response.status(405).send(
+											{ "status": error405,
+										  	  "Mensaje": "ID no existente."
 										  	}
-										  );
-			})
+										 );
+			else{
+				acontecimiento.remove(function(err) {
+					if (err) throw err;
+					else
+			  			response.status(200).send(
+												{ "status": "OK",
+											  	  "Mensaje": "Acontecimiento eliminado correctamente."
+											  	}
+											  );
+				})
+			}
 		}
 	});
 });
@@ -135,12 +151,14 @@ app.delete('/Acontecimientos/:id', function( req, response ) {
 // Eliminar todas los acontecimientos almacenados
 app.delete('/Acontecimientos', function( req, response ) {	
 	Acontecimiento.deleteMany({}, function(err) {
-		if(err) return response.status(500).send(err.message);
-  		response.status(200).send(
-									{ "status": "OK",
-								  	  "Mensaje": "Acontecimientos eliminados."
-								  	}
-								  );
+		if (err) throw err;
+		else{
+	  		response.status(200).send(
+										{ "status": "OK",
+									  	  "Mensaje": "Acontecimientos eliminados."
+									  	}
+									  );
+		}
 	})
 });
 
