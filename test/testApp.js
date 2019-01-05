@@ -1,6 +1,7 @@
 var request = require('supertest'),
 	Acontecimiento = require('../src/Acontecimiento.js'),
-	app = require('../src/app.js');
+	app = require('../src/app.js'),
+	mongoose = require('mongoose');
 	
 var ObjectId = require('mongodb').ObjectID;
 
@@ -73,6 +74,27 @@ describe( "POST App", function() {
 		.expect('Content-Type', /json/)
 		.expect(200, done);
 	});
+
+	it('Error ID Etiqueta', function (done) {
+	request(app)
+		.post('/Acontecimientos/63c420ba75edcdc3ec709218/etiqueta=Laboratorio')
+		.expect('Content-Type', /json/)
+		.expect(405, done);
+	});
+	
+	it('Error ID Fecha', function (done) {
+	request(app)
+		.post('/Acontecimientos/63c420ba75edcdc3ec709218/fecha=11-01-2019')
+		.expect('Content-Type', /json/)
+		.expect(405, done);
+	});
+	
+	it('Error ID Hora', function (done) {
+	request(app)
+		.post('/Acontecimientos/63c420ba75edcdc3ec709218/hora=16:00')
+		.expect('Content-Type', /json/)
+		.expect(405, done);
+	});
 	
 	it('Error', function (done) {
 	request(app)
@@ -80,7 +102,6 @@ describe( "POST App", function() {
 		.expect(404, done);
 	});
 });
-
 
 describe( "DELETE App", function() {
 	it('Eliminación acontecimiento', function (done) {
@@ -90,6 +111,13 @@ describe( "DELETE App", function() {
 		.expect(200, done);
 	});
 	
+	it('Error ID', function (done) {
+	request(app)
+		.delete('/Acontecimientos/63c420ba75edcdc3ec709218')
+		.expect('Content-Type', /json/)
+		.expect(405, done);
+	});
+	
 	it('Eliminación completa', function (done) {
 	request(app)
 		.delete('/Acontecimientos')
@@ -97,3 +125,12 @@ describe( "DELETE App", function() {
 		.expect(200, done);
 	});
 });
+
+// https://github.com/visionmedia/supertest/issues/437
+describe( "Finalizar", function() {
+	it('Cierre conexión MongoDB', function (done) {
+		mongoose.connection.close();
+		done();
+	});
+});
+

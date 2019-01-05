@@ -53,50 +53,82 @@ app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( r
 // Modificar el acontecimiento de un acontecimiento
 app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		acontecimiento.Etiqueta = req.params.etiqueta;
+		if(acontecimiento==null)
+			response.status(405).send(
+										{ "status": error405,
+									  	  "Mensaje": "ID no existente."
+									  	}
+									 );
+		else{
+			acontecimiento.Etiqueta = req.params.etiqueta;
 
-		acontecimiento.save(function(err) {
-			if(err) return response.status(500).send(err.message);
-	  		response.status(200).jsonp(acontecimiento);
-		});
+			acontecimiento.save(function(err) {
+				if(err) return response.status(500).send(err.message);
+		  		response.status(200).jsonp(acontecimiento);
+			});
+		}
 	});
 });
 
 // Modificar el día de un acontecimiento
 app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
+		if(acontecimiento==null)
+			response.status(405).send(
+										{ "status": error405,
+									  	  "Mensaje": "ID no existente."
+									  	}
+									 );
+		else{
+			acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
 
-		acontecimiento.save(function(err) {
-			if(err) return response.status(500).send(err.message);
-	  		response.status(200).jsonp(acontecimiento);
-		});
+			acontecimiento.save(function(err) {
+				if(err) return response.status(500).send(err.message);
+		  		response.status(200).jsonp(acontecimiento);
+			});
+		}
 	});
 });
 
 // Modificar la hora de un acontecimiento
 app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
+		if(acontecimiento==null)
+			response.status(405).send(
+										{ "status": error405,
+									  	  "Mensaje": "ID no existente."
+									  	}
+									 );
+		else{
+			acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
 
-		acontecimiento.save(function(err) {
-			if(err) return response.status(500).send(err.message);
-	  		response.status(200).jsonp(acontecimiento);
-		});
+			acontecimiento.save(function(err) {
+				if(err) return response.status(500).send(err.message);
+		  		response.status(200).jsonp(acontecimiento);
+			});
+		}
 	});
 });
 	
 // Eliminar un acontecimiento
 app.delete('/Acontecimientos/:id', function( req, response ) {
 	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		acontecimiento.remove(function(err) {
-			if(err) return response.status(500).send(err.message);
-	  			response.status(200).send(
-										{ "status": "OK",
-									  	  "Mensaje": "Acontecimiento eliminado correctamente."
+		if(acontecimiento==null)
+			response.status(405).send(
+										{ "status": error405,
+									  	  "Mensaje": "ID no existente."
 									  	}
-									  );
-		})
+									 );
+		else{
+			acontecimiento.remove(function(err) {
+				if(err) return response.status(500).send(err.message);
+		  		response.status(200).send(
+											{ "status": "OK",
+										  	  "Mensaje": "Acontecimiento eliminado correctamente."
+										  	}
+										  );
+			})
+		}
 	});
 });
 
@@ -118,6 +150,7 @@ if(!module.parent){
 		console.log("CalPreNob ejecutandose...");
 	});
 }
+
 
 // Exporta la variable para poder hacer tests
 module.exports = app;
