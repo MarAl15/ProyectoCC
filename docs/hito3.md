@@ -4,14 +4,6 @@
 
 Se ha creado una máquina virtual en Azure con la siguiente configuración:
 
-- **Nombre del equipo:** ubuntu18
-
-- **Sistema Operativo:** Ubuntu Server 18.04 LTS 
-
-Está decisión fue tomada ya que Ubuntu es un sistema operativo de código abierto con paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[1](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
-
-Por último, cabe notar que se utiliza la última versión de soporte extendido LTS (_Long Term Service_) que nos ofrece un soporte de hasta 5 años.
-
 - **Ubicación:** Centro de Francia
 
 Se ha elegido la región que presenta menos latencia en media [[2](https://azurespeedtest.azurewebsites.net/)].
@@ -38,9 +30,74 @@ A través del puerto de SSH se puede realizar el aprovisionamiento de la máquin
 
 - **Dirección IP pública:** Estática
 
+- **Sistema Operativo:** Ubuntu Server 18.04 LTS 
+
+	Para decidir el sistema operativo se ha testeado el rendimiento de la aplicación utilizando Apache Bench. Para ello, se han seguido los siguientes pasos:
+	
+	1. Inicialmente se han creado tres máquinas virtuales en Azure para comparar:
+
+		- Ubuntu Server 18.04 LTS
+		- Debian 9
+		- CentOS 7.5
+	
+	Además se ha instalado el paquete `ab`:
+```console
+$ sudo apt install apache2-utils
+```
+		
+	2. Seguidamente se instala la aplicación con ayuda del playbook (como se explica [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#aprovisionamiento)), excepto el archivo `/etc/yum.repos.d/mongodb-org-4.0.repo` que se crea como nos indica [esta página](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/) manualmente, por mayor comodidad.
+	
+	4. Se ejecuta el siguiente comando[[1](https://blog.diacode.com/testeando-el-rendimiento-de-tu-aplicacion-con-apache-bench)]]:
+```console
+$ ab -n 1000 -c 20 http://<IP_MV>/Acontecimientos
+```
+donde:
+
+	- `-n 1000` indica que se harán 1000 peticiones
+	- `-c 20` indica que se harán 20 peticiones concurrentes
+	- `http://<IP_MV>/Acontecimientos` es la URL que vamos a testear, donde `IP_MV` es la dirección IP de la máquina virtual a probar.
+	
+Y seleccionamos para comparar, como se nos aconseja en [[1](https://blog.diacode.com/testeando-el-rendimiento-de-tu-aplicacion-con-apache-bench)], los siguientes resultados:
+	- **Requests per second:** peticiones atendidas por segundo durante la prueba.
+	- **Time per request (mean):** tiempo medio que el servidor ha tardado en atender a un grupo de peticiones concurrentes.
+	- **Time per request (mean, across all concurrent requests):** tiempo medio que el servidor ha tardado en atender una petición individual.
+	
+	| 						 										   | [Ubuntu 18.04](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h3-ubuntu.png) | [Debian 9](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h3-debian.png) | [CentOS 7.5](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h3-centos.png) |
+	|------------------------------------------------------------------|--------------|----------|------------|
+	| **Requests per second** [#/sec]								   | 65.14	      | 56.76   |  58.05	  |
+	| **Time per request (mean):** [ms]								   | 307.009	  | 352.387  | 344.552    |
+	| **Time per request (mean, across all concurrent requests)** [ms] | 15.350       | 17.619  | 17.228     |
+
+	Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona 
+ paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[1](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
+
+- **Nombre del equipo:** ubuntu18
+
 ## Avance y [modificaciones](https://github.com/MarAl15/ProyectoCC/blob/master/docs/microservicios.md)
 
-Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) y [Tarea.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) para manejar la base de datos `tareasdb` para la gestión de tareas utilizando mongoose. Además se han modificado alguna de las rutas y se ha añadido la posibilidad de eliminar todas las tareas almacenadas en la base de datos.
+Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para manejar la base de datos `acontecimientosdb` para la gestión de acontecimientos utilizando mongoose. Para ello se ha creado el siguiente objeto _Schema_ para definir la lista de propiedades que queremos que tenga la clase `Acontecimiento` en el archivo [Acontecimiento.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/Acontecimiento.js):
+```node
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+var acontecimiento = new Schema({
+	Etiqueta: { 
+		type: String, 
+		required: [true, "Etiqueta no puede ser vacio"]
+	},
+	Fecha: { 
+		type: String, 
+		required: [true, "Fecha no puede ser vacia"]
+	},
+	Hora: String
+});
+
+module.exports = mongoose.model('Acontecimientos',acontecimiento)
+```
+donde se define el objeto `acontecimiento` usando el constructor Schema, y luego se utiliza la instancia del esquema para definir el modelo Acontecimientos.
+
+
+Además se han modificado alguna de las rutas y se ha añadido la posibilidad de eliminar todas las tareas almacenadas en la base de datos.
 
 ## Aprovisionamiento
 
@@ -70,14 +127,14 @@ En este caso, se ha definido el fichero *ansible_hosts* de la siguiente manera:
 
 ``` 
 [azure]
-ubuntu18 ansible_ssh_port=22 ansible_ssh_host=40.89.153.203
+<nombre_MV> ansible_ssh_host=<IP_MV>
 
 [azure:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
 ansible_ssh_user=usuario
 ```
 
-Primero se le asigna un nombre a la máquina, en este caso `ubuntu18`, y se le especifica la dirección IP y el puerto por el que puede acceder a la máquina virtual para provisionarla. 
+Primero se le asigna un nombre a la máquina y se le especifica la dirección IP por la que puede acceder a la máquina virtual para provisionarla. 
 
 Inicialmente especificamos que el usuario que vamos a usar es `usuario`. Pero para acceder a la máquina virtual necesitamos una clave privada. Azure nos pide la clave pública de esa clave privada a la máquina virtual al crearla para subirla directamente y que cuando nos conectemos por SSH pueda acceder a esa máquina virtual.
 
@@ -96,26 +153,29 @@ Con el `-` indicamos que va a comenzar un array, con pares de tipo `clave-valor`
 
 En este _playbook_ se realizan los siguientes pasos:
 
-- Instalación de `git`.
+- Instalación de `git` para poder clonar nuestro proyecto posteriormente.
 - Instalación de `Node.js`, instalando `curl` y agregando su PPA previamente.[[4](https://github.com/nodesource/distributions/blob/master/README.md)]
-- Instalación de `forever` para poder ejecutar en segundo plano la aplicación.
-- Instalación de MongoDB, importanto previamente la clave pública y creando un archivo de lista para este.[[5](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)]
+	
+	Se ha elegido instalar `curl` en vez de, por ejemplo, `wget` ya que, aunque ambos nos permite descargar contenido desde `FTP`, `HTTP` y `HTTPS`, `curl` nos ofrece soporte para más protocolos, además de ejecutarse en más plataformas. Cabe notar que `curl` ofrece capacidades de subida y envío, mientras que `wget` sólo ofrece soporte HTTP POST simple. [[5](https://maslinux.es/curl-vs-wget-sus-diferencias-uso-y-cual-deberias-usar/),[6](https://www.quora.com/Whats-the-difference-between-curl-and-wget)]	
+- Instalación de `forever` para poder ejecutar en segundo plano la aplicación. Se ha elegido `forever` en vez de `pm2`, por ejemplo, ya que es una herramienta de interfaz de línea de mandatos simple que permite garantizar la ejecución continua de un determinado script y gracias a su sencilla interfaz es ideal para ejecutar los despliegues más pequeños de scripts y aplicaciones Node.js. [[7](https://expressjs.com/es/advanced/pm.html#sl)]
+- Instalación de MongoDB, importando previamente la clave pública y creando un archivo de lista para este.[[7](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)] 
+
+	Cabe notar que para instalar MongoDB en Debian se debe de modificar el archivo de lista por el especificado en [esta página](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/).
 - Iniciación de MongoDB.
-- Creación del directorio donde se albergará el proyecto posteriormente.
 - Descarga de nuestro proyecto desde el repositorio.
 - Instalación de las dependencias basadas en _package.json_.
 
 A continuación se comprueba que funciona:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/verificacion-playbook.png" height="600">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/verificacion-receta.png" height="600">
 </p>
 
 Se puede observar que se han realizado todas las tareas satisfactoriamente. 
 
 Finalmente desplegamos nuestra aplicación en la máquina virtual provisionada conectándonos por SSH a esta:
 ```console
-$ ssh usuario@40.89.153.203
+$ ssh usuario@<IP_MV>
 usuario@ubuntu18:~$ cd ProyectoCC/
 usuario@ubuntu18:~/ProyectoCC$ sudo npm start
 ```
