@@ -1,27 +1,27 @@
 # Microservicios
 
-## Gestión de tareas
+## Gestión de acontecimientos
 
-Se ha creado un microservicio simplificado para la gestión de tareas con la ayuda de express, mongoose y Node.js, implementando la clase:
+Se ha creado un microservicio simplificado para la gestión de acontecimientos con la ayuda de express, mongoose y Node.js, implementando la clase:
 
-- [`Tarea:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) esquema para almacenar el acontecimiento importante que queremos recordar, la fecha y la hora de inicio de este. 
+- [`Acontecimiento:`](https://github.com/MarAl15/ProyectoCC/blob/master/src/Tarea.js) esquema para almacenar el acontecimiento importante que queremos recordar, la fecha y la hora de inicio de este en una base de datos MongoDB. 
 
 Además también se ha implementado en el fichero [`app.js`](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) un servicio web que permite realizar las siguientes operaciones:
 
 - Operación GET para mostrar simplemente `status Ok`.
 
-- Operación GET para visualizar las tareas almacenadas hasta el momento en la base de datos `tareasdb`, mediante la ruta `/Tareas`.
+- Operación GET para visualizar los acontecimientos almacenados hasta el momento en la base de datos `acontecimientodb`, mediante la ruta `/Acontecimientos`.
 
-- Operación PUT para agregar una tarea a la base de datos, mediante la ruta `/Tareas/:acontecimiento/:dia-:mes-:anio/:hora::minutos`.
+- Operación PUT para agregar un acontecimiento a la base de datos, mediante la ruta `/Acontecimientos/:acontecimiento/:dia-:mes-:anio/:hora::minutos`.
 
-- Operación POST para la modificación de algún atributo de la tarea identificada mediante la `_id` que se le asigna al crearse:
-	- Acontecimiento: `/Tareas/:id/acontecimiento=:acontecimiento'`
-	- Fecha: `/Tareas/:id/fecha=:dia-:mes-:anio`
-	- Hora de inicio: `/Tareas/:id/hora=:hora::minutos` 
+- Operación POST para la modificación de algún atributo del acontecimiento identificado mediante la `_id` que se le asigna al crearse:
+	- Acontecimiento: `/Acontecimientos/:id/acontecimiento=:acontecimiento'`
+	- Fecha: `/Acontecimientos/:id/fecha=:dia-:mes-:anio`
+	- Hora de inicio: `/Acontecimientos/:id/hora=:hora::minutos` 
 	
-- Operación DELETE para la eliminación de la tarea especificada. Dicha eliminación se realiza mediante la ruta `/Tareas/:id`.
+- Operación DELETE para la eliminación del acontecimiento especificado. Dicha eliminación se realiza mediante la ruta `/Acontecimientos/:id`.
 
-- Operación DELETE para la eliminación de todas las tareas almacenadas en la base de datos, mediante la ruta `/Tareas`.
+- Operación DELETE para la eliminación de todas las tareas almacenadas en la base de datos, mediante la ruta `/Acontecimientos`.
 
 Dichas operaciones devuelven el estado de código correspondiente y, en caso de ser una operación contemplada se retorna información en JSON.
 
