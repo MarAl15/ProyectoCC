@@ -126,11 +126,12 @@ describe( "DELETE App", function() {
 	});
 });
 
-// https://github.com/visionmedia/supertest/issues/437
+/*
+// https://github.com/visionmedia/supertest/issues/437 - Arreglar el error de no terminar
 describe( "Finalizar", function() {
 	it('Cierre conexión MongoDB', function (done) {
 		mongoose.connection.close();
 		done();
 	});
-});
+});*/
 

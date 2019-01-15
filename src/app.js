@@ -6,10 +6,9 @@ var error405 = "ERROR Method Not Allowed";
 	
 const Acontecimiento = require("./Acontecimiento.js");
 
-// Conectando a la base de datos (Si no existe la base de datos MongoDB la crea por nosotros)
-mongoose.connect('mongodb://localhost/acontecimientodb', { useNewUrlParser: true })
-	.then(db => console.log('Conectado a la base de datos')) // Para verificar que se ha conectado. Si se conecta se va a generar un objeto de db pero no se va a utilizar, tan suelo se muestra un mensaje por consola
-	.catch(err => console.log(err)); // Si existe un error, lo mostramos por consola
+// Si no existe la base de datos MongoDB la crea por nosotros
+var url = 'mongodb://localhost/acontecimientodb';
+
 	
 // Establecer el puerto dependiendo del PaaS que sea
 app.set('port', (process.env.PORT || 80));
@@ -25,141 +24,176 @@ app.get('/', function(request, response) {
 });
 
 // Mostrar los acontecimientos almacenados hasta el momento
-app.get('/Acontecimientos', function( req, response ) {
-	Acontecimiento.find(function(err, acontecimientos) {
-		// https://developer.mozilla.org/es/docs/Web/JavaScript/Guide/Control_de_flujo_y_manejo_de_errores
-		if (err) throw err;
-		else
+app.get('/Acontecimientos', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+	  	Acontecimiento.find(function(error, acontecimientos) {
+			// https://mongoosejs.com/docs/middleware.html
+			if (error) return next(err);
+			
 			response.status(200).jsonp(acontecimientos);
+			db.close();
+		});
 	});
 });
 
 // Agregar un acontecimiento
-app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( req, response ) {
-	var acontecimiento = new Acontecimiento({
-		Etiqueta: req.params.etiqueta,
-		Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
-		Hora: req.params.hora+":"+req.params.minutos
-		//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
-	});
-	
-	acontecimiento.save(function(err, acontecimiento) {
-		if (err) throw err;
-		else
+app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+		var acontecimiento = new Acontecimiento({
+			Etiqueta: req.params.etiqueta,
+			Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
+			Hora: req.params.hora+":"+req.params.minutos
+			//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
+		});
+
+		acontecimiento.save(function(error, acontecimiento) {
+			if (error) return next(error);
+			
 			response.status(200).jsonp(acontecimiento);
-    });
+			db.close();
+		});
+	});
 });
 
 
-// Modificar el acontecimiento de un acontecimiento
-app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response ) {
-	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if (err) throw err;
-		else{
-			if(acontecimiento==null)
+// Modificar la etiqueta de un acontecimiento
+app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+		Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+			if (err) return next(err);
+
+			if(acontecimiento==null){
 				response.status(405).send(
 											{ "status": error405,
 										  	  "Mensaje": "ID no existente."
 										  	}
 										 );
-			else{
+				db.close();
+			}else{
 				acontecimiento.Etiqueta = req.params.etiqueta;
 
 				acontecimiento.save(function(err) {
-					if (err) throw err;
-			  		else
-			  			response.status(200).jsonp(acontecimiento);
+					if (err) return next(err);
+			  		
+			  		response.status(200).jsonp(acontecimiento);
+			  		db.close();
 				});
-			}
-		}
+			}	
+		});
 	});
 });
 
 // Modificar el día de un acontecimiento
-app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response ) {
-	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if (err) throw err;
-		else{
-			if(acontecimiento==null)
+app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+		Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+			if (err) return next(err);
+			
+			if(acontecimiento==null){
 				response.status(405).send(
 											{ "status": error405,
 										  	  "Mensaje": "ID no existente."
 										  	}
 										 );
-			else{
+				db.close();
+			}else{
 				acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
 
 				acontecimiento.save(function(err) {
-					if (err) throw err;
+					if (err) return next(err);
+					
 			  		response.status(200).jsonp(acontecimiento);
+			  		db.close();
 				});
 			}
-		}
+		});
 	});
 });
 
 // Modificar la hora de un acontecimiento
-app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response ) {
-	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if (err) throw err;
-		else{
-			if(acontecimiento==null)
+app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+		Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+			if (err) return next(err);
+			
+			if(acontecimiento==null){
 				response.status(405).send(
 											{ "status": error405,
 										  	  "Mensaje": "ID no existente."
 										  	}
 										 );
-			else{
+				db.close();
+			}else{
 				acontecimiento.Hora = req.params.hora+":"+req.params.minutos;
 
 				acontecimiento.save(function(err) {
-					if (err) throw err;
-			  		else
-			  			response.status(200).jsonp(acontecimiento);
+					if (err) return next(err);
+			  		
+			  		response.status(200).jsonp(acontecimiento);
+			  		db.close();
 				});
 			}
-		}
+		});
 	});
 });
 	
 // Eliminar un acontecimiento
-app.delete('/Acontecimientos/:id', function( req, response ) {
-	Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-		if (err) throw err;
-		else{
-			if(acontecimiento==null)
+app.delete('/Acontecimientos/:id', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  	
+		Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+			if (err) return next(err);
+			
+			if(acontecimiento==null){
 				response.status(405).send(
 											{ "status": error405,
 										  	  "Mensaje": "ID no existente."
 										  	}
 										 );
-			else{
+				db.close();
+			}else{
 				acontecimiento.remove(function(err) {
-					if (err) throw err;
-					else
-			  			response.status(200).send(
-												{ "status": "OK",
-											  	  "Mensaje": "Acontecimiento eliminado correctamente."
-											  	}
-											  );
+					if (err) return next(err);
+			  			
+		  			response.status(200).send(
+											{ "status": "OK",
+										  	  "Mensaje": "Acontecimiento eliminado correctamente."
+										  	}
+										  );
+					db.close();
 				})
 			}
-		}
+		});
 	});
 });
 
 // Eliminar todas los acontecimientos almacenados
-app.delete('/Acontecimientos', function( req, response ) {	
-	Acontecimiento.deleteMany({}, function(err) {
-		if (err) throw err;
-		else{
+app.delete('/Acontecimientos', function( req, response, next ) {
+	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+	  	if (err) return next(err);
+	  		
+		Acontecimiento.deleteMany({}, function(err) {
+			if (err) return next(err);
+	  		
 	  		response.status(200).send(
 										{ "status": "OK",
 									  	  "Mensaje": "Acontecimientos eliminados."
 									  	}
 									  );
-		}
-	})
+			db.close();
+		});
+	});
 });
 
 // Escucha en un puerto determinado
