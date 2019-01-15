@@ -4,30 +4,19 @@
 [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://github.com/MarAl15/ProyectoCC/blob/master/LICENSE)
 # [Proyecto](https://maral15.github.io/ProyectoCC/) de la asignatura de Cloud Computing
 
-## Calendario Premios Nobel. 
+## Calendario 
 
 ### Descripción
-En una época donde nos encontramos desbordados de información gracias a la web, la cultura científica se tiende a olvidar. Con este proyecto queremos volver a despertar la curiosidad científica en algunos de los ámbitos de la ciencia, a partir de los grandes descubridores que obtuvieron el Premio Nobel, incitando a averiguar más sobre ellos y sobre su contribución a la ciencia, e impulsando la investigación y el aprendizaje.
-
-En recordatorio de estos grandes genios y revolucionarios, que intentarón ir más allá de lo conocido hasta entonces, se desea realizar un calendario en el que se muestre los ganadores de algún Premio Nobel.
-
-Este proyecto consiste en crear un calendario en el que se muestre una fotografía del ganador de un premio Nobel cuya fecha de nacimiento o fallecimiento coincida con la indicada. Toda esta información se extraerá de la enciclopedia libre, políglota y editada de manera colaborativa llamada [Wikipedia](https://es.wikipedia.org/).
-
-Para una mayor utilidad de este, se ha decidido añadir la posibilidad de especificar tareas simples como reuniones, días de laboratorio (para las carreras universitarias de biología, medicina...) o cualquier otra cita importante, estableciendo una hora e incorporando, si desea, una pequeña nota con aclaraciones.
+Hoy en día nos vemos comprometidos a asistir a diversos acontecimientos importantes como reuniones o citas médicas en nuestra vida diaria, por ello se propone desarrollar un calendario simple que nos sirva de ayuda para recordar dichos acontecimientos, pudiendo así tenerlos presentes para que no se nos olviden y podamos organizarnos mejor. 
 
 ### Arquitectura
 Se va a utilizar una arquitectura de microservicios ya que nos permite crear, testear y desplegar de forma independiente cada servicio, proporcionándonos mayor versatilidad y facilidad para integrar.
 
 En este proyecto, se puede diferenciar principalmente estos microservicios:
 
-- Ganadores del Premio Nobel
-
-- Almacenamiento de la información
-
-- Gestión de tareas simples
-
-- Gestión del calendario
-
+- Almacenamiento de los acontecimientos que se desean recordar, así como la fecha y la hora de comienzo de este.
+- Servicio de gestión de los acontecimientos previstos.
+- Servicio de LOG para monitorización de la aplicación.
 
 Para la comunicación entre los distintos servicios se utilizará el _broker_ [RabbitMQ](https://www.rabbitmq.com/), que es un sistema de manejo de colas que permite que un servicio que quiere enviar un mensaje a otro pueda continuar su tarea sin tener que esperar a la entrega de dicho mensaje.
 
