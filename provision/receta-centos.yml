@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntu18
+- hosts: centos7
 
   vars:
     - directorio: ~/ProyectoCC
@@ -7,39 +7,32 @@
   tasks: 
     - name: Instala git
       become: yes
-      apt: pkg=git state=present
+      yum: pkg=git state=present
     
     - name: Instala curl 
       become: yes
-      apt: pkg=curl state=latest
+      yum: pkg=curl state=latest
       
     - name: Agrega PPA Node.js
       become: yes
-      shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+      shell: curl -sL https://rpm.nodesource.com/setup_11.x | bash -
       args: 
         warn: no
       
     - name: Instala Node.js
       become: yes
-      apt: pkg=nodejs state=latest
+      yum: pkg=nodejs state=latest
     
     - name: Instala forever
       become: yes
       npm: name=forever global=yes state=present
-    
-    - name: Importa la clave pública MongoDB
-      become: yes
-      shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 9DA31620334BD75D9DCB49F368818C72E52529D4
-
-    - name: Añade repositorio MongoDB
-      become: yes
-      shell: echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
+        
     - name: Instala MongoDB
       become: yes
-      apt:
+      yum:
         name: mongodb-org
         state: present
+        update_cache: yes
 
     - name: Inicia MongoDB
       become: yes

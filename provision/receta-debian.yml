@@ -1,5 +1,5 @@
 ---
-- hosts: ubuntu18
+- hosts: debian9
 
   vars:
     - directorio: ~/ProyectoCC
@@ -33,13 +33,14 @@
 
     - name: Añade repositorio MongoDB
       become: yes
-      shell: echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.0.list
-
+      shell: echo "deb http://repo.mongodb.org/apt/debian stretch/mongodb-org/4.0 main" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.0.list
+        
     - name: Instala MongoDB
       become: yes
       apt:
         name: mongodb-org
         state: present
+        update_cache: yes
 
     - name: Inicia MongoDB
       become: yes
