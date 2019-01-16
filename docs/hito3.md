@@ -32,9 +32,9 @@ A través del puerto de SSH se puede realizar el aprovisionamiento de la máquin
 
 - **Sistema Operativo:** Ubuntu Server 18.04 LTS 
 
-	Para decidir el sistema operativo se ha testeado el rendimiento de la aplicación utilizando Apache Bench. Para ello, se han seguido los siguientes pasos:
+	Para decidir el sistema operativo debemos de tener en cuenta que necesitamos poder instalar una de las últimas versiones de Node.js, además de MongoDB para que funcione correctamente. Para tomar la decisión final se ha testeado el rendimiento de la aplicación utilizando Apache Bench a partir de los siguientes pasos:
 
-1. Inicialmente se han creado tres máquinas virtuales en Azure:
+1. Inicialmente se han creado tres máquinas virtuales en Azure, cada una con uno de los siguientes sistemas operativos:
 
 	- Ubuntu Server 18.04 LTS
 	- Debian 9
@@ -71,7 +71,7 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 | **Time per request (mean):** [ms]								   | 307.009	  | 352.387  | 344.552    |
 | **Time per request (mean, across all concurrent requests)** [ms] | 15.350       | 17.619  | 17.228     |
 
-Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona paquetes de software más actualizados que en Debian, con un instalador mucho más fácil e intuitivo y, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[3](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
+Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona paquetes de software más actualizados que en Debian además de que, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[3](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
 
 - **Nombre del equipo:** ubuntu18
 
