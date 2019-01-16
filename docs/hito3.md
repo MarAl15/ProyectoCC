@@ -45,7 +45,7 @@ A través del puerto de SSH se puede realizar el aprovisionamiento de la máquin
 $ sudo apt install apache2-utils
 ```
 
-2. Seguidamente se instala la aplicación con ayuda del playbook (de forma análoga a como se explica [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#aprovisionamiento)), excepto el archivo `/etc/yum.repos.d/mongodb-org-4.0.repo`, que se crea como nos indica [esta página](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/), manualmente.
+2. Seguidamente se instala la aplicación con ayuda del playbook (de forma análoga a como se explica [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#aprovisionamiento)), excepto el archivo `/etc/yum.repos.d/mongodb-org-4.0.repo`, que se crea manualmente a partir de la información de [esta página](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/).
 
 3. Se ejecuta el siguiente comando[[2](https://blog.diacode.com/testeando-el-rendimiento-de-tu-aplicacion-con-apache-bench)]:
 ```console
@@ -75,9 +75,9 @@ Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un r
 
 - **Nombre del equipo:** ubuntu18
 
-## Avance y modificaciones
+## Avance y [modificaciones](https://github.com/MarAl15/ProyectoCC/blob/master/docs/microservicios.md)
 
-Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para manejar la base de datos `acontecimientosdb` para la gestión de acontecimientos utilizando mongoose. Para ello se ha creado el siguiente objeto _Schema_ para definir la lista de propiedades que queremos que tenga la clase `Acontecimiento` en el archivo [Acontecimiento.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/Acontecimiento.js):
+Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para manejar la base de datos `acontecimientodb` para la gestión de acontecimientos utilizando mongoose, creando el siguiente objeto _Schema_ para definir la lista de propiedades que queremos que tenga, en el archivo [Acontecimiento.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/Acontecimiento.js):
 ```node
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
@@ -159,7 +159,9 @@ En este _playbook_ se realizan los siguientes pasos:
 - Instalación de `Node.js`, instalando `curl` y agregando su PPA previamente.[[5](https://github.com/nodesource/distributions/blob/master/README.md)]
 	
 	Se ha elegido instalar `curl` en vez de, por ejemplo, `wget` ya que, aunque ambos nos permite descargar contenido desde `FTP`, `HTTP` y `HTTPS`, `curl` nos ofrece soporte para más protocolos, además de ejecutarse en más plataformas. Cabe notar que `curl` ofrece capacidades de subida y envío, mientras que `wget` sólo ofrece soporte HTTP POST simple. [[6](https://maslinux.es/curl-vs-wget-sus-diferencias-uso-y-cual-deberias-usar/),[7](https://www.quora.com/Whats-the-difference-between-curl-and-wget)]	
-- Instalación de `forever` para poder ejecutar en segundo plano la aplicación. Se ha elegido `forever` en vez de `pm2`, por ejemplo, ya que es una herramienta de interfaz de línea de mandatos simple que permite garantizar la ejecución continua de un determinado script y gracias a su sencilla interfaz es ideal para ejecutar los despliegues más pequeños de scripts y aplicaciones Node.js. [[8](https://expressjs.com/es/advanced/pm.html#sl)]
+- Instalación de `forever` para poder ejecutar en segundo plano la aplicación. 
+	
+	Se ha elegido `forever` en vez de `pm2`, por ejemplo, ya que es una herramienta de interfaz de línea de mandatos simple que permite garantizar la ejecución continua de un determinado script y gracias a su sencilla interfaz es ideal para ejecutar los despliegues más pequeños de scripts y aplicaciones Node.js. [[8](https://expressjs.com/es/advanced/pm.html#sl)]
 - Instalación de MongoDB, importando previamente la clave pública y creando un archivo de lista para este.[[9](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/), [10](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/)] 
 - Iniciación de MongoDB.
 - Descarga de nuestro proyecto desde el repositorio.
