@@ -79,21 +79,21 @@ describe( "POST App", function() {
 	request(app)
 		.post('/Acontecimientos/63c420ba75edcdc3ec709218/etiqueta=Laboratorio')
 		.expect('Content-Type', /json/)
-		.expect(405, done);
+		.expect(404, done);
 	});
 	
 	it('Error ID Fecha', function (done) {
 	request(app)
 		.post('/Acontecimientos/63c420ba75edcdc3ec709218/fecha=11-01-2019')
 		.expect('Content-Type', /json/)
-		.expect(405, done);
+		.expect(404, done);
 	});
 	
 	it('Error ID Hora', function (done) {
 	request(app)
 		.post('/Acontecimientos/63c420ba75edcdc3ec709218/hora=16:00')
 		.expect('Content-Type', /json/)
-		.expect(405, done);
+		.expect(404, done);
 	});
 	
 	it('Error', function (done) {
@@ -115,7 +115,7 @@ describe( "DELETE App", function() {
 	request(app)
 		.delete('/Acontecimientos/63c420ba75edcdc3ec709218')
 		.expect('Content-Type', /json/)
-		.expect(405, done);
+		.expect(404, done);
 	});
 	
 	it('Eliminación completa', function (done) {

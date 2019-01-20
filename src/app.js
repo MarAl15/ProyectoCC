@@ -2,7 +2,7 @@ const express = require('express'),
 	  app = express(),
 	  mongoose = require('mongoose');
 
-var error405 = "ERROR Method Not Allowed";
+var error404 = "ERROR Not Found";
 	
 const Acontecimiento = require("./Acontecimiento.js");
 
@@ -69,9 +69,9 @@ app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response, nex
 			if (err) return next(err);
 
 			if(acontecimiento==null){
-				response.status(405).send(
-											{ "status": error405,
-										  	  "Mensaje": "ID no existente."
+				response.status(404).send(
+											{ "status": error404,
+										  	  "Mensaje": "No encontrado."
 										  	}
 										 );
 				db.close();
@@ -98,9 +98,9 @@ app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response, 
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
-				response.status(405).send(
-											{ "status": error405,
-										  	  "Mensaje": "ID no existente."
+				response.status(404).send(
+											{ "status": error404,
+										  	  "Mensaje": "No encontrado."
 										  	}
 										 );
 				db.close();
@@ -127,9 +127,9 @@ app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response, ne
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
-				response.status(405).send(
-											{ "status": error405,
-										  	  "Mensaje": "ID no existente."
+				response.status(404).send(
+											{ "status": error404,
+										  	  "Mensaje": "No encontrado."
 										  	}
 										 );
 				db.close();
@@ -156,9 +156,9 @@ app.delete('/Acontecimientos/:id', function( req, response, next ) {
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
-				response.status(405).send(
-											{ "status": error405,
-										  	  "Mensaje": "ID no existente."
+				response.status(404).send(
+											{ "status": error404,
+										  	  "Mensaje": "No encontrado."
 										  	}
 										 );
 				db.close();
