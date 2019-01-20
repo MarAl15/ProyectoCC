@@ -1,6 +1,7 @@
 const express = require('express'),
 	  app = express(),
-	  mongoose = require('mongoose');
+	  mongoose = require('mongoose'),
+	  winston = require('winston');
 
 var error404 = "ERROR Not Found";
 	
@@ -14,8 +15,19 @@ var url = 'mongodb://localhost/acontecimientodb';
 app.set('port', (process.env.PORT || 80));
 app.use(express.static(__dirname + '/public'));
 
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: `${__dirname}/../logs/app.log` }),
+    //new winston.transports.Console({format: winston.format.combine(winston.format.simple())})
+  ]
+});
+
+
 // Mostrar que funciona
-app.get('/', function(request, response) {	
+app.get('/', function(request, response) {
+	logger.info("status: OK");	
 	response.status(200).send(
 		{
 			"status": "OK"
@@ -32,6 +44,7 @@ app.get('/Acontecimientos', function( req, response, next ) {
 			// https://mongoosejs.com/docs/middleware.html
 			if (error) return next(err);
 			
+			logger.info("Acontecimientos: "+acontecimientos);
 			response.status(200).jsonp(acontecimientos);
 			db.close();
 		});
@@ -53,6 +66,7 @@ app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( r
 		acontecimiento.save(function(error, acontecimiento) {
 			if (error) return next(error);
 			
+			logger.info("Nuevo acontecimiento: "+acontecimiento);
 			response.status(200).jsonp(acontecimiento);
 			db.close();
 		});
@@ -69,6 +83,7 @@ app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response, nex
 			if (err) return next(err);
 
 			if(acontecimiento==null){
+				logger.info("ERROR 404: "+ req.params.id + " - Not Found");
 				response.status(404).send(
 											{ "status": error404,
 										  	  "Mensaje": "No encontrado."
@@ -81,6 +96,7 @@ app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response, nex
 				acontecimiento.save(function(err) {
 					if (err) return next(err);
 			  		
+			  		logger.info("Modificación etiqueta: "+acontecimiento);
 			  		response.status(200).jsonp(acontecimiento);
 			  		db.close();
 				});
@@ -98,6 +114,7 @@ app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response, 
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
+				logger.info("ERROR 404: "+ req.params.id + " - Not Found");
 				response.status(404).send(
 											{ "status": error404,
 										  	  "Mensaje": "No encontrado."
@@ -110,6 +127,7 @@ app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response, 
 				acontecimiento.save(function(err) {
 					if (err) return next(err);
 					
+					logger.info("Modificación día: "+acontecimiento);
 			  		response.status(200).jsonp(acontecimiento);
 			  		db.close();
 				});
@@ -127,6 +145,7 @@ app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response, ne
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
+				logger.info("ERROR 404: "+ req.params.id + " - Not Found");
 				response.status(404).send(
 											{ "status": error404,
 										  	  "Mensaje": "No encontrado."
@@ -139,6 +158,7 @@ app.post('/Acontecimientos/:id/hora=:hora::minutos', function( req, response, ne
 				acontecimiento.save(function(err) {
 					if (err) return next(err);
 			  		
+			  		logger.info("Modificación hora: "+acontecimiento);
 			  		response.status(200).jsonp(acontecimiento);
 			  		db.close();
 				});
@@ -156,6 +176,7 @@ app.delete('/Acontecimientos/:id', function( req, response, next ) {
 			if (err) return next(err);
 			
 			if(acontecimiento==null){
+				logger.info("ERROR 404: "+ req.params.id + " - Not Found");
 				response.status(404).send(
 											{ "status": error404,
 										  	  "Mensaje": "No encontrado."
@@ -166,6 +187,7 @@ app.delete('/Acontecimientos/:id', function( req, response, next ) {
 				acontecimiento.remove(function(err) {
 					if (err) return next(err);
 			  			
+			  		logger.info("Acontecimiento eliminado correctamente.");
 		  			response.status(200).send(
 											{ "status": "OK",
 										  	  "Mensaje": "Acontecimiento eliminado correctamente."
@@ -186,6 +208,7 @@ app.delete('/Acontecimientos', function( req, response, next ) {
 		Acontecimiento.deleteMany({}, function(err) {
 			if (err) return next(err);
 	  		
+	  		logger.info("Acontecimiento eliminados.");
 	  		response.status(200).send(
 										{ "status": "OK",
 									  	  "Mensaje": "Acontecimientos eliminados."
