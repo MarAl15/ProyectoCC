@@ -40,6 +40,7 @@
       apt:
         name: mongodb-org
         state: present
+        update_cache: yes
 
     - name: Inicia MongoDB
       become: yes
