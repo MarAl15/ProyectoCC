@@ -157,9 +157,9 @@ $ az vm create --name <SO>H4 --image <URN_asociada> --resource-group CCGroupFC -
 
 Y se abre el puerto 80:
 
-```
+```console
 $ az vm open-port -g CCGroupFC -n <SO>H4 --port 80
-
+``` 
 
 2. Seguidamente se instala la aplicación con ayuda del playbook (de forma análoga a como se explica [aquí](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito3.md#aprovisionamiento)), excepto el archivo `/etc/yum.repos.d/mongodb-org-4.0.repo`, que se crea manualmente a partir de la información de [esta página](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/).
 
@@ -188,7 +188,6 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 | **Time per request (mean, across all concurrent requests)** [ms] | 16.562     | 17.678   |  17.975    |
 
 Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona paquetes de software más actualizados que en Debian además de que, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[3](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
-
 
 ## Referencias principales
 - [Winston](https://www.npmjs.com/package/winston)
