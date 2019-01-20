@@ -187,7 +187,22 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 | **Time per request (mean):** [ms]								   | 331.230	| 353.553  |  359.506   |
 | **Time per request (mean, across all concurrent requests)** [ms] | 16.562     | 17.678   |  17.975    |
 
-Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona paquetes de software más actualizados que en Debian además de que, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[3](https://www.linuxadictos.com/debian-vs-ubuntu.html)]. 
+Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un resultado menor tanto en Debian como en CentOS, el tiempo medio que tarda el servidor en atender tanto peticiones concurrentes como individuales es menor. Por tanto, debido a que la diferencia no es muy significativa en el caso de las peticiones atendidas, se ha decidido utilizar Ubuntu, el cual nos proporciona paquetes de software más actualizados que en Debian además de que, por lo general, los desarrolladores tienen gran interés en desarrollar software para este debido a su popularidad entre la comunidad [[3](https://www.linuxadictos.com/debian-vs-ubuntu.html)].
+
+## Avance
+
+Se ha modificado los ficheros [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir el servicio de LOG de nuestra aplicación, utilizando para ello el paquete Winston.
+
+En este caso, simplemente se almacena todas las salidas de las peticiones a nuestra APIRest en el fichero `app.log` contenido en la carpeta `logs`. Para ello se ha configurado de la siguiente manera:
+```node
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: `${__dirname}/../logs/app.log` })
+  ]
+});
+``` 
 
 ## Referencias principales
 - [Winston](https://www.npmjs.com/package/winston)
