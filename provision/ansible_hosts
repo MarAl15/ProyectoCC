@@ -2,6 +2,7 @@
 ubuntu18 ansible_ssh_host=20.188.38.97
 centos7 ansible_ssh_host=40.89.191.229
 debian9 ansible_ssh_host=20.188.33.179
+ubuntu18H4 ansible_ssh_host=40.89.157.192
 
 [azure:vars]
 ansible_ssh_private_key_file=~/.ssh/id_rsa
