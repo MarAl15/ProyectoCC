@@ -199,6 +199,7 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 	- **Time per request (mean, across all concurrent requests):** tiempo medio que el servidor ha tardado en atender una petición individual.
 	
 - Centro de Francia
+
 | 						 										   | [Ubuntu 18.04](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-ubuntu.png) | [Debian 9](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-debian.png) | [CentOS 7.5](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-centos.png) |
 |:----------------------------------------------------------------:|:----------:|:--------:|:----------:|
 | **Requests per second** [#/sec]								   | 60.38	    | 56.57    |  55.63	    |
@@ -206,6 +207,7 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 | **Time per request (mean, across all concurrent requests)** [ms] | 16.562     | 17.678   |  17.975    |
 
 - Sur de Reino Unido
+
 | 						 										   | [Ubuntu 18.04](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-ubuntuUKS.png) | [Debian 9](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-debianUKS.png) | [CentOS 7.5](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-centosUKS.png) |
 |:----------------------------------------------------------------:|:----------:|:--------:|:----------:|
 | **Requests per second** [#/sec]								   | 58.21      |  31.01   |  56.54	    |
