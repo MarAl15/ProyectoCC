@@ -218,6 +218,59 @@ Aunque en peticiones atendidas por segundo durante la prueba hemos obtenido un r
 
 Además se han obtenido mejores resultados en el centro de Francia. Por lo tanto, como ya habiamos anticipado, se va a automatizar la creación de una máquina virtual con Ubuntu 18.04 LTS con ubicación en el centro de Francia. 
 
+### Automatización de la creación de máquinas virtuales desde línea de órdenes
+
+Se ha realizado un script, llamado [`acopio.sh`](https://github.com/MarAl15/ProyectoCC/blob/master/acopio.sh) para la creación de una máquina virtual de forma automática con ayuda de Azure CLI (Latest) de forma análoga a la comentada anteriormente:
+
+```bash
+#!/bin/bash
+
+# Creación del grupo de recursos
+echo "Creando el grupo de recursos..."
+az group create -l francecentral -n CCGroupH4
+
+# Creación de la máquina virtual
+echo "Creando la MV Ubuntu18H4..."
+az vm create --name Ubuntu18H4 --image Canonical:UbuntuServer:18.04-LTS:18.04.201901140 --resource-group CCGroupH4 --admin-username usuario --size Standard_B1s --ssh-key-value ~/.ssh/id_rsa.pub --public-ip-address-allocation static
+
+# Habilitación del puerto 80
+echo "Abriendo el puerto 80..."
+az vm open-port -g CCGroupH4 -n Ubuntu18H4 --port 80
+```
+
+- Para la creación del grupo de recursos se utiliza el comando `az group create` con los siguientes parámetros:
+	
+	- `-l (--location ):` Localización.
+	- `-n (--name -g --resource-group):` Nombre del grupo del recurso
+
+Por defecto, este grupo de recursos pertenecerá a la subcripción que tengamos activa en el momento de crearlo, en caso de que queramos asociarlo a otra deberemos añadir `--subscription <id_subcripción>`. Sin embargo, se recomienda cambiar la subscripción activa con ayuda el comando `az account set --subscription` [[4](https://docs.microsoft.com/es-es/cli/azure/manage-azure-subscriptions-azure-cli?view=azure-cli-latest)] para que no tengamos problemas en la creación de la máquina virtual. 
+	
+- Para la creación de la máquina virtual con las opciones elegidas se utiliza el comando `az vm create` con los siguientes parámetros:
+	
+	- `--name:` Nombre de la máquina virtual.
+	- `--image:` El nombre de la imagen del sistema operativo utilizando el URN asociado en este caso. 
+
+Una imagen del _Marketplace_ de Azure tiene los atributos siguientes [[5](https://docs.microsoft.com/es-es/azure/virtual-machines/windows/cli-ps-findimage)]:
+
+- **Publicador:** organización que ha creado la imagen. _Ejemplos:_ Canonical, MicrosoftWindowsServer
+- **Oferta:** nombre de un grupo de imágenes relacionadas creado por un publicador. _Ejemplos:_ Ubuntu Server, WindowsServer
+- **SKU:** instancia de una oferta, por ejemplo, una versión principal de una distribución. _Ejemplos:_ 16.04-LTS, 2016-Datacenter
+- **Versión:** número de versión de una SKU de imagen.
+
+Para identificar una imagen de Marketplace se suele utilizar un URN que combina estos valores separados por el carácter de dos puntos, es decir, `Publicador:Oferta:Sku:Versión`.
+
+	- `--resource-group:` Nombre del grupo del recurso.
+	- `--admin-username:` Nombre de usuario para la MV.
+	- `--size:` El tamaño de la MV que va a ser creada.
+	- `--ssh-key-value:` La ruta de la clave pública SSH o del archivo de clave pública.
+	- `--public-ip-address-allocation:` Especificamos si queremos que la dirección IP pública sea estática o dinámica.
+	
+- Habilitamos el puerto 80 para comprobar posteriormente que se ha desplegado correctamente nuestra aplicación mediante el comando `azure vm open` con los siguientes parámetros: 
+	
+	- `-g (--resource-group):` Nombre del grupo del recurso.
+	- `-n (--name):` El nombre de la máquina virtual en la que se abrirá el tráfico entrante.
+	- `--port:` El puerto o rango de puertos al que se abrirá el tráfico entrante.
+
 
 ## Avance
 
@@ -240,4 +293,7 @@ const logger = winston.createLogger({
 - [How To Use Winston to Log Node.js Applications](https://www.digitalocean.com/community/tutorials/how-to-use-winston-to-log-node-js-applications)
 - [Tema de "Automatizando el despliegue en la nube"](http://jj.github.io/CC/documentos/temas/Automatizando_cloud)
 - [Azure CLI (Latest)](https://docs.microsoft.com/es-es/cli/azure/vm?view=azure-cli-latest)
+	
+	- [az vm](https://docs.microsoft.com/es-es/cli/azure/vm?view=azure-cli-latest#az-group)
+	- [az group](https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#az-group-create)
 
