@@ -271,6 +271,36 @@ Para identificar una imagen de Marketplace se suele utilizar un URN que combina 
 	- `-n (--name):` El nombre de la máquina virtual en la que se abrirá el tráfico entrante.
 	- `--port:` El puerto o rango de puertos al que se abrirá el tráfico entrante.
 
+Al ejecutar dicho script obtenemos la siguiente salida donde podemos observar que la dirección IP asociada a nuestra nueva MV es `40.89.157.192`.
+
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/ejecucion-acopio.png" height="350">
+</p>
+
+A partir de esa dirección IP modificamos el archivo [`ansible_host`](https://github.com/MarAl15/ProyectoCC/blob/master/provision/ansible_hosts) añadiendo la siguiente línea:
+
+```console
+ubuntu18H4 ansible_ssh_host=40.89.157.192
+```
+
+Y procedemos a provisionar la MV creada a partir del playbook asociado a Ubuntu:
+
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-verificacion-receta.png" height="350">
+</p>
+
+Finalmente desplegamos nuestra aplicación en la máquina virtual provisionada conectándonos por SSH a esta:
+```console
+$ ssh usuario@40.89.157.192
+usuario@ubuntu18:~$ cd ProyectoCC/
+usuario@ubuntu18:~/ProyectoCC$ sudo npm start
+```
+
+Por último, comprobamos que se ha desplegado correctamente nuestra aplicación accediendo a la dirección IP de la máquina virtual creada en Azure desde el navegador:
+
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-comprobacion.png" weight="450">
+</p>
 
 ## Avance
 
