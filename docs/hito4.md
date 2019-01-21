@@ -198,7 +198,7 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 	- **Time per request (mean):** tiempo medio que el servidor ha tardado en atender a un grupo de peticiones concurrentes.
 	- **Time per request (mean, across all concurrent requests):** tiempo medio que el servidor ha tardado en atender una petición individual.
 	
-- Centro de Francia
+**Centro de Francia**
 
 | 						 										   | [Ubuntu 18.04](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-ubuntu.png) | [Debian 9](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-debian.png) | [CentOS 7.5](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-centos.png) |
 |:----------------------------------------------------------------:|:----------:|:--------:|:----------:|
@@ -206,7 +206,7 @@ Y seleccionamos para comparar, como se nos aconseja en [[2](https://blog.diacode
 | **Time per request (mean):** [ms]								   | 331.230	| 353.553  |  359.506   |
 | **Time per request (mean, across all concurrent requests)** [ms] | 16.562     | 17.678   |  17.975    |
 
-- Sur de Reino Unido
+**Sur de Reino Unido**
 
 | 						 										   | [Ubuntu 18.04](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-ubuntuUKS.png) | [Debian 9](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-debianUKS.png) | [CentOS 7.5](https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-centosUKS.png) |
 |:----------------------------------------------------------------:|:----------:|:--------:|:----------:|
@@ -243,21 +243,21 @@ az vm open-port -g CCGroupH4 -n Ubuntu18H4 --port 80
 	- `-l (--location ):` Localización.
 	- `-n (--name -g --resource-group):` Nombre del grupo del recurso
 
-Por defecto, este grupo de recursos pertenecerá a la subcripción que tengamos activa en el momento de crearlo, en caso de que queramos asociarlo a otra deberemos añadir `--subscription <id_subcripción>`. Sin embargo, se recomienda cambiar la subscripción activa con ayuda el comando `az account set --subscription` [[4](https://docs.microsoft.com/es-es/cli/azure/manage-azure-subscriptions-azure-cli?view=azure-cli-latest)] para que no tengamos problemas en la creación de la máquina virtual. 
+	Por defecto, este grupo de recursos pertenecerá a la subcripción que tengamos activa en el momento de crearlo, en caso de que queramos asociarlo a otra deberemos añadir `--subscription <id_subcripción>`. Sin embargo, se recomienda cambiar la subscripción activa con ayuda el comando `az account set --subscription` [[4](https://docs.microsoft.com/es-es/cli/azure/manage-azure-subscriptions-azure-cli?view=azure-cli-latest)] para que no tengamos problemas en la creación de la máquina virtual. 
 	
 - Para la creación de la máquina virtual con las opciones elegidas se utiliza el comando `az vm create` con los siguientes parámetros:
 	
 	- `--name:` Nombre de la máquina virtual.
 	- `--image:` El nombre de la imagen del sistema operativo utilizando el URN asociado en este caso. 
 
-Una imagen del _Marketplace_ de Azure tiene los atributos siguientes [[5](https://docs.microsoft.com/es-es/azure/virtual-machines/windows/cli-ps-findimage)]:
+		Una imagen del _Marketplace_ de Azure tiene los atributos siguientes [[5](https://docs.microsoft.com/es-es/azure/virtual-machines/windows/cli-ps-findimage)]:
+		
+		- **Publicador:** organización que ha creado la imagen. _Ejemplos:_ Canonical, MicrosoftWindowsServer
+		- **Oferta:** nombre de un grupo de imágenes relacionadas creado por un publicador. _Ejemplos:_ Ubuntu Server, WindowsServer
+		- **SKU:** instancia de una oferta, por ejemplo, una versión principal de una distribución. _Ejemplos:_ 16.04-LTS, 2016-Datacenter
+		- **Versión:** número de versión de una SKU de imagen.
 
-- **Publicador:** organización que ha creado la imagen. _Ejemplos:_ Canonical, MicrosoftWindowsServer
-- **Oferta:** nombre de un grupo de imágenes relacionadas creado por un publicador. _Ejemplos:_ Ubuntu Server, WindowsServer
-- **SKU:** instancia de una oferta, por ejemplo, una versión principal de una distribución. _Ejemplos:_ 16.04-LTS, 2016-Datacenter
-- **Versión:** número de versión de una SKU de imagen.
-
-Para identificar una imagen de Marketplace se suele utilizar un URN que combina estos valores separados por el carácter de dos puntos, es decir, `Publicador:Oferta:Sku:Versión`.
+		Para identificar una imagen de Marketplace se suele utilizar un URN que combina estos valores separados por el carácter de dos puntos, es decir, `Publicador:Oferta:Sku:Versión`.
 
 	- `--resource-group:` Nombre del grupo del recurso.
 	- `--admin-username:` Nombre de usuario para la MV.
@@ -274,19 +274,19 @@ Para identificar una imagen de Marketplace se suele utilizar un URN que combina 
 Al ejecutar dicho script obtenemos la siguiente salida donde podemos observar que la dirección IP asociada a nuestra nueva MV es `40.89.157.192`.
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/ejecucion-acopio.png" height="350">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/ejecucion-acopio.png" height="450">
 </p>
 
 A partir de esa dirección IP modificamos el archivo [`ansible_host`](https://github.com/MarAl15/ProyectoCC/blob/master/provision/ansible_hosts) añadiendo la siguiente línea:
 
 ```console
-ubuntu18H4 ansible_ssh_host=40.89.157.192
+$ ubuntu18H4 ansible_ssh_host=40.89.157.192
 ```
 
 Y procedemos a provisionar la MV creada a partir del playbook asociado a Ubuntu:
 
 <p align="center">
-<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-verificacion-receta.png" height="350">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-verificacion-receta.png" height="550">
 </p>
 
 Finalmente desplegamos nuestra aplicación en la máquina virtual provisionada conectándonos por SSH a esta:
@@ -318,6 +318,7 @@ const logger = winston.createLogger({
 ``` 
 
 ## Referencias principales
+
 - [Winston](https://www.npmjs.com/package/winston)
 - [Configurando Winston - Logger en Nodejs](https://www.youtube.com/watch?v=axOHMgZznpo)
 - [How To Use Winston to Log Node.js Applications](https://www.digitalocean.com/community/tutorials/how-to-use-winston-to-log-node-js-applications)
