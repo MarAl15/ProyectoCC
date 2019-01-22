@@ -44,6 +44,11 @@ Dicha máquina se ha aprovisionado con todas las dependencias necesarias para po
 - Aprovisionamiento comprobado por [Adrián de la Torre Rodríguez](https://github.com/adritake) en este [documento](
 https://github.com/adritake/CC_UGR_Personal/blob/master/docs/Provision.md#comprobaci%C3%B3n-de-provisi%C3%B3n-de-un-compa%C3%B1ero)
 
+### Automatización de la creación de máquinas virtuales desde línea de órdenes
+
+MV2: 40.89.157.192
+
+Se ha construido un script para automatizar la creación de una máquina virtual en Azure mediante las órdenes del CLI de este. Para más información sobre la elección de la máquina virtal a instalar, la creación del script y el despliegue de la aplicación, consulte [este documento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito4.md). 
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
