@@ -25,6 +25,12 @@ Además también se ha implementado en el fichero [`app.js`](https://github.com/
 
 Dichas operaciones devuelven el estado de código correspondiente y, en caso de ser una operación contemplada se retorna información en JSON.
 
+## Servicio de LOG
+
+Se ha modificado el fichero [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir el servicio de LOG de nuestra aplicación, utilizando para ello el paquete Winston.
+
+En este caso, simplemente se almacena todas las salidas de las peticiones a nuestra APIRest en el fichero `app.log` contenido en la carpeta `logs`. 
+
 # Verificación
 
 Para cada uno de los ficheros contenidos en la carpeta `src` se ha creado un test de verificación de código contenido en la carpeta `test` con ayuda de la herramienta `SuperTest`.
