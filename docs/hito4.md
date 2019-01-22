@@ -1,5 +1,21 @@
 # Hito 4
 
+## Avance
+
+Se ha modificado el fichero [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir el servicio de LOG de nuestra aplicación, utilizando para ello el paquete Winston.
+
+En este caso, simplemente se almacena todas las salidas de las peticiones a nuestra APIRest en el fichero `app.log` contenido en la carpeta `logs`. Para ello se ha configurado de la siguiente manera:
+```node
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.File({ filename: `${__dirname}/../logs/app.log` })
+  ]
+});
+``` 
+
+
 ## Máquina virtual
 
 Se desea crear una máquina virtual en Azure con la siguiente configuración:
@@ -306,20 +322,6 @@ Por último, comprobamos que se ha desplegado correctamente nuestra aplicación 
 <img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h4-comprobacion.png" weight="450">
 </p>
 
-## Avance
-
-Se ha modificado el fichero [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir el servicio de LOG de nuestra aplicación, utilizando para ello el paquete Winston.
-
-En este caso, simplemente se almacena todas las salidas de las peticiones a nuestra APIRest en el fichero `app.log` contenido en la carpeta `logs`. Para ello se ha configurado de la siguiente manera:
-```node
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: `${__dirname}/../logs/app.log` })
-  ]
-});
-``` 
 
 ## Referencias principales
 
