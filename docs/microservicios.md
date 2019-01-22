@@ -27,7 +27,7 @@ Dichas operaciones devuelven el estado de código correspondiente y, en caso de 
 
 ## Servicio de LOG
 
-Se ha modificado el fichero [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir el servicio de LOG de nuestra aplicación, utilizando para ello el paquete Winston.
+Se ha modificado el fichero [app.js](https://github.com/MarAl15/ProyectoCC/blob/master/src/app.js) para añadir un servicio de LOG a nuestra aplicación, utilizando para ello el paquete Winston.
 
 En este caso, simplemente se almacena todas las salidas de las peticiones a nuestra APIRest en el fichero `app.log` contenido en la carpeta `logs`. 
 
