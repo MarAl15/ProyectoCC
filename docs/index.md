@@ -39,7 +39,7 @@ Dicha máquina se ha aprovisionado con todas las dependencias necesarias para po
 
 MV2: 40.89.157.192
 
-Se ha construido un script para automatizar la creación de una máquina virtual en Azure mediante las órdenes del CLI de este. Para más información sobre la elección de la máquina virtal a instalar, la creación del script y el despliegue de la aplicación, consulte [este documento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito4.md). 
+Se ha construido un script para automatizar la creación de una máquina virtual en Azure mediante las órdenes del CLI de este. Para más información sobre la elección de la máquina virtual a instalar, la creación del script y el despliegue de la aplicación, consulte [este documento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito4.md). 
 
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
