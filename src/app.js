@@ -1,7 +1,8 @@
 const express = require('express'),
 	  app = express(),
 	  mongoose = require('mongoose'),
-	  winston = require('winston');
+	  winston = require('winston'),
+	  moment = require('moment');;
 
 var error404 = "ERROR Not Found";
 	
@@ -28,6 +29,11 @@ const logger = winston.createLogger({
 // Mostrar que funciona
 app.get('/', function(request, response) {
 	logger.info("status: OK");	
+	if(comprobarFecha(10, 1, 2019))
+		console.log("true");
+	else	
+		console.log("false");
+	
 	response.status(200).send(
 		{
 			"status": "OK"
@@ -51,26 +57,54 @@ app.get('/Acontecimientos', function( req, response, next ) {
 	});
 });
 
+// Comprobamos si es una fecha válida y posterior al día actual
+function comprobarFecha(dia, mes, anio){
+	var hoy = new Date(),
+		mesM = mes-1, // 0-Enero, 1-Febrero,...
+		date = new Date(anio, mesM, dia); 
+	
+	//console.log(dateA.fromNow());
+	if(moment(date).isValid()){
+		if(anio > hoy.getFullYear())
+			return true;
+		else if(anio == hoy.getFullYear()){
+			if(mesM > hoy.getMonth())
+				return true;
+			else if(mesM == hoy.getMonth() && dia >= hoy.getDate()){
+				return true;
+			}
+		}
+	}
+	
+	return false;
+}
+
 // Agregar un acontecimiento
 app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( req, response, next ) {
-	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
-	  	if (err) return next(err);
-	  	
-		var acontecimiento = new Acontecimiento({
-			Etiqueta: req.params.etiqueta,
-			Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
-			Hora: req.params.hora+":"+req.params.minutos
-			//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
-		});
+	if(comprobarFecha(req.params.dia, req.params.dia, req.params.anio)){
+		mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+		  	if (err) return next(err);
+		  	
+			var acontecimiento = new Acontecimiento({
+				Etiqueta: req.params.etiqueta,
+				Fecha: req.params.dia+"-"+req.params.mes+"-"+req.params.anio,
+				Hora: req.params.hora+":"+req.params.minutos
+				//Fecha: new Date(req.params.anio+"-"+req.params.mes+"-"+req.params.dia+"T"+req.params.hora+":"+req.params.minutos+":00Z")//(req.params.anio,req.params.mes,req.params.dia).toISOString()
+			});
 
-		acontecimiento.save(function(error, acontecimiento) {
-			if (error) return next(error);
+			acontecimiento.save(function(error, acontecimiento) {
+				if (error) return next(error);
 			
-			logger.info("Nuevo acontecimiento: "+acontecimiento);
-			response.status(200).jsonp(acontecimiento);
-			db.close();
+				logger.info("Nuevo acontecimiento: "+acontecimiento);
+				response.status(200).jsonp(acontecimiento);
+				db.close();
+			});
 		});
-	});
+	}
+	else{
+		logger.info("Fecha no valida");
+		response.status(200).send( {"Mensaje": "Fecha no valida"} );
+	}	
 });
 
 
@@ -107,33 +141,39 @@ app.post('/Acontecimientos/:id/etiqueta=:etiqueta', function( req, response, nex
 
 // Modificar el día de un acontecimiento
 app.post('/Acontecimientos/:id/fecha=:dia-:mes-:anio', function( req, response, next ) {
-	mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
-	  	if (err) return next(err);
-	  	
-		Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
-			if (err) return next(err);
+	if(comprobarFecha(req.params.dia, req.params.dia, req.params.anio)){
+		mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
+		  	if (err) return next(err);
+		  	
+			Acontecimiento.findById(req.params.id, function(err, acontecimiento) {
+				if (err) return next(err);
 			
-			if(acontecimiento==null){
-				logger.info("ERROR 404: "+ req.params.id + " - Not Found");
-				response.status(404).send(
-											{ "status": error404,
-										  	  "Mensaje": "No encontrado."
-										  	}
-										 );
-				db.close();
-			}else{
-				acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
+				if(acontecimiento==null){
+					logger.info("ERROR 404: "+ req.params.id + " - Not Found");
+					response.status(404).send(
+												{ "status": error404,
+											  	  "Mensaje": "No encontrado."
+											  	}
+											 );
+					db.close();
+				}else{
+					acontecimiento.Fecha = req.params.dia+"-"+req.params.mes+"-"+req.params.anio;
 
-				acontecimiento.save(function(err) {
-					if (err) return next(err);
+					acontecimiento.save(function(err) {
+						if (err) return next(err);
 					
-					logger.info("Modificación día: "+acontecimiento);
-			  		response.status(200).jsonp(acontecimiento);
-			  		db.close();
-				});
-			}
+						logger.info("Modificación día: "+acontecimiento);
+				  		response.status(200).jsonp(acontecimiento);
+				  		db.close();
+					});
+				}
+			});
 		});
-	});
+	}
+	else{
+		logger.info("Fecha no valida");
+		response.status(200).send( {"Mensaje": "Fecha no valida"} );
+	}
 });
 
 // Modificar la hora de un acontecimiento
