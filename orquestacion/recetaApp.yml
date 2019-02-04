@@ -1,0 +1,39 @@
+---
+- hosts: app
+
+  vars:
+    - directorio: ~/ProyectoCC
+  
+  tasks: 
+    - name: Instala git
+      become: yes
+      apt: pkg=git state=present
+    
+    - name: Instala curl 
+      become: yes
+      apt: pkg=curl state=latest
+      
+    - name: Agrega PPA Node.js
+      become: yes
+      shell: curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+      args: 
+        warn: no
+      
+    - name: Instala Node.js
+      become: yes
+      apt: pkg=nodejs state=latest
+    
+    - name: Instala forever
+      become: yes
+      npm: name=forever global=yes state=present
+      
+    - name: Descarga el proyecto del repositorio
+      git: 
+        repo: https://github.com/MarAl15/ProyectoCC.git
+        dest: "{{ directorio }}"
+        force: yes
+        
+    - name: Instala dependencias basadas en package.json
+      npm:
+        path: "{{ directorio }}"
+        
