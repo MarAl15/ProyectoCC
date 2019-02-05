@@ -29,6 +29,6 @@ exports.comprobarFecha = function(dia, mes, anio){
 }
 ```
 
-Cabe notar tanto `moment` como `Date` representan los meses con valores enteros de 0 (Enero) a 11 (Diciembre) en vez de 1 a 12. [[1](https://momentjs.com/docs/), [2](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date), [3](https://desarrolloweb.com/articulos/mostrar-fecha-actual-javascript.html)] 
+Cabe notar tanto en `moment` como `Date` se representan los meses con valores enteros de 0 (Enero) a 11 (Diciembre). [[1](https://momentjs.com/docs/), [2](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date), [3](https://desarrolloweb.com/articulos/mostrar-fecha-actual-javascript.html)] 
 
-Dicha función se ha empleado para verificar la fecha antes de insertarla el acontecimiento en la base de datos o modificar la fecha de uno ya existente.
+Dicha función se ha empleado para verificar la fecha antes de insertarla el acontecimiento en la base de datos o modificar la fecha de uno ya existente. Además se ha añadido un test de verificación de dicha función en [testFecha.js](https://github.com/MarAl15/ProyectoCC/blob/master/test/testFecha.js).
