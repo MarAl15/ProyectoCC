@@ -8,11 +8,7 @@ var error404 = "ERROR Not Found";
 const Acontecimiento = require("./Acontecimiento.js"),
 	  cf = require("./ComprobarFecha.js");
 
-var ip_mongodb;
-if(process.env.IP_MONGO)
-	ip_mongodb = process.env.IP_MONGO;
-else
-	ip_mongodb = 'localhost';
+var ip_mongodb = process.env.IP_MONGO || 'localhost';
  
 // Si no existe la base de datos MongoDB la crea por nosotros
 var url = 'mongodb://'+ip_mongodb+'/acontecimientodb';
