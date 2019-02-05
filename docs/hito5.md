@@ -158,9 +158,15 @@ Dicha opción evita que las máquinas se generen en paralelo, lo que suele provo
 
 Inicialmente se crea y provisiona la máquina virtual que contendrá la aplicación.
 
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/vagrant-app.png" weight="450">
+</p>
 
 A continuación se crea y provisiona la máquina virtual que contendrá la base de datos relacionada.
 
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/vagrant-db.png" weight="600">
+</p>
 
 
 Entramos a la máquina virtual que va a contener la base de datos:
@@ -179,7 +185,9 @@ $ vagrant ssh app
 usuario@calendar:~$ cd ProyectoCC/
 usuario@calendar:~$ sudo IP_MONGO="10.0.0.5" npm start
 ```
-
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h5-comprobacion.png" weight="450">
+</p>
 
 ## Avance y modificaciones
 
