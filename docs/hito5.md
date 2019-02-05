@@ -2,16 +2,16 @@
 
 ## Orquestación
 
-En este hito realizaremos la creación de las máquinas virtuales, así como la descripción y el aprovisionamiento correspondiente de estas con ayuda de Vagrant que nos permite crear cualquier entorno basado en máquinas virtuales de una manera fácil de entender, rápida y replicable.
+En este hito hemos realizado la creación de dos máquinas virtuales, así como la descripción y el aprovisionamiento correspondiente, con ayuda de Vagrant que nos permite crear cualquier entorno basado en máquinas virtuales de una manera rápida y replicable.
 
-Para ello se seguirán los pasos que se nos indica en el [GitHub oficial de Azure](https://github.com/Azure/vagrant-azure).
+Para ello se seguirán los pasos que nos indican en el [GitHub oficial de Azure](https://github.com/Azure/vagrant-azure).
 
 Previamentente instalamos el CLI de Azure (en caso de que no lo tuviésemos ya instalado previamente) e iniciamos sesión en Azure. A continuación creamos un directorio de aplicacion activo de Azure con acceso al gestor de recursos.
 ```console
 $ az ad sp create-for-rbac
 ```
 
-Los valores `tenant`, `appId` y `password` se utilizan para los valores de configuración `azure.tenant_id`, `azure.client_id` y `azure.client_secret` del Vagrantfile donde describiremos el tipo de máquinas que vamos a configurar.
+Los valores `tenant`, `appId` y `password` se utilizan para los valores de configuración `azure.tenant_id`, `azure.client_id` y `azure.client_secret` del Vagrantfile, donde describimos el tipo de máquinas que vamos a crear.
 
 Seguidamente añadimos la _dummy box_ e instalamos el _plugin_ de `vagrant-azure`.
 ```console
@@ -21,12 +21,12 @@ $ vagrant plugin install vagrant-azure
 
 ### Vagrantfile
 
-Creamos el directorio denominado `orquestacion` y añadimos el contenido del las máquinas virtuales que queremos crear y provisionar en el archivo `Vagrantfile`. 
+Creamos el directorio denominado `orquestacion`, y añadimos el contenido del las máquinas virtuales que queremos crear y provisionar en el archivo `Vagrantfile`. 
 
-Se crearán dos máquinas virtuales con las características vistas y justificadas en hitos anteriores, una de ellas nos servirá para el despliegue de nuestra aplicación y la otra contendrá todo lo relacionado con el almacenamiento de esta. En consecuencia, se ha separado el _playbook_ original en dos: [`recetaApp.yml`](https://github.com/MarAl15/ProyectoCC/blob/master/orquestacion/recetaApp.yml) y [`recetaDB.yml
+Se crearán dos máquinas virtuales con las características vistas y justificadas en hitos anteriores, una de ellas nos servirá para el despliegue de nuestra aplicación y la otra contendrá todo lo relacionado con el almacenamiento. En consecuencia, se ha separado el _playbook_ original en dos: [`recetaApp.yml`](https://github.com/MarAl15/ProyectoCC/blob/master/orquestacion/recetaApp.yml) y [`recetaDB.yml
 `](https://github.com/MarAl15/ProyectoCC/blob/master/orquestacion/recetaDB.yml).
 
-A continuación desglosamos un poco el [`Vagrantfile`](https://github.com/MarAl15/ProyectoCC/blob/master/orquestacion/Vagrantfile) que hemos creado para ver la configuración de las máquinas virtuales:
+A continuación desglosamos un poco el [`Vagrantfile`](https://github.com/MarAl15/ProyectoCC/blob/master/orquestacion/Vagrantfile) que hemos creado para ver la configuración que va a tener nuestras máquinas virtuales:
 
 ```vagrant
 Vagrant.configure('2') do |config|
@@ -56,9 +56,9 @@ config.vm.define "<alias>" do |<alias>|
 end	
 ```
 
-donde `<alias>` es `app` o `db`. Dentro de esta se define las características concretas que tendrá cada máquina virtual. Dentro de la cual podemos distinguir los siguientes tres bloques:
+donde `<alias>` es `app` o `db`. Dentro de esta se define las características concretas que tendrá cada máquina virtual. Podemos distinguir los siguientes tres bloques:
 
-```console
+```
 <alias>.vm.provider :azure do |azure, override|
 	# ...
 end
@@ -71,7 +71,7 @@ end
 end
 ```
 
-El bloque primero (<alias>.vm.provider :azure) nos permitirá definir las características que queremos que tenga nuestra máquina virtual en Azure. El segundo parámetro nos sirve para establecer el nombre de usuario que Vagrant tendrá SSH como predeterminado ya que por defecto es "vagrant" [[3](https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html#config-ssh-username)]. Y el último bloque nos sirve para realizar el provisionamiento de la máquina virtual relacionada con dicho `<alias>`.
+El bloque primero (`<alias>.vm.provider :azure`) nos permitirá definir las características que queremos que tenga nuestra máquina virtual en Azure. El segundo parámetro nos sirve para establecer el nombre de usuario que Vagrant usará para conectarse por SSH como predeterminado ya que por defecto es "vagrant" [[3](https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html#config-ssh-username)]. Y el último bloque (`<alias>.vm.provision "ansible"`) nos sirve para realizar el provisionamiento de la máquina virtual relacionada con dicho `<alias>`.
 
 Empecemos explicando el contenido de `<alias>.vm.provider :azure`:
 
