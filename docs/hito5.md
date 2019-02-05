@@ -49,9 +49,100 @@ config.ssh.private_key_path = '~/.ssh/id_rsa'
 
 Le indicamos a Azure la clave pública asociada a nuestra clave privada para que cuando nos conectemos por SSH podamos acceder a la máquina virtual.
 
+A continuación especificamos que queremos definir dos máquinas virtuales [[2](https://www.vagrantup.com/docs/multi-machine/)]
+```
+config.vm.define "<alias>" do |<alias>|
+	# ...
+end	
+```
+
+donde `<alias>` es `app` o `db`. Dentro de esta se define las características concretas que tendrá cada máquina virtual. Dentro de la cual podemos distinguir los siguientes tres bloques:
+
+```console
+<alias>.vm.provider :azure do |azure, override|
+	# ...
+end
+
+# Nombre de usuario predeterminado para SSH
+<alias>.ssh.username = "usuario"
+
+<alias>.vm.provision "ansible" do |ansible|
+	# ...
+end
+```
+
+El bloque primero (<alias>.vm.provider :azure) nos permitirá definir las características que queremos que tenga nuestra máquina virtual en Azure. El segundo parámetro nos sirve para establecer el nombre de usuario que Vagrant tendrá SSH como predeterminado ya que por defecto es "vagrant" [[3](https://www.vagrantup.com/docs/vagrantfile/ssh_settings.html#config-ssh-username)]. Y el último bloque nos sirve para realizar el provisionamiento de la máquina virtual relacionada con dicho `<alias>`.
+
+Empecemos explicando el contenido de `<alias>.vm.provider :azure`:
+
+```
+# Cuenta de Azure
+azure.tenant_id = ENV['AZURE_TENANT_ID']
+azure.client_id = ENV['AZURE_CLIENT_ID']
+azure.client_secret = ENV['AZURE_CLIENT_SECRET']
+# Subcripción de Azure
+azure.subscription_id = ENV['AZURE_SUBSCRIPTION_ID']
+```
+
+- `tenant_id:` El identificador de `tenant` del directorio de aplicacion activo de Azure.
+- `client_id:` El identificador de `client` del directorio de aplicacion activo de Azure.
+- `azure.client_secret:` La contraseña del directorio de aplicacion activo de Azure.
+- `azure.subscription_id:` El ID de la subripción de Azure que queremos utilizar.
+
+Cabe notar que se usan variables de entorno para todos los IDs y claves tanto por seguridad como por el hecho de que usar variables de entorno (u otro sistema análogo) es configurable por cada uno de los usuarios de forma sencilla.
 
 
+```
+# Nombre de la MV
+azure.vm_name = '<nombre>'
+# Nombre del grupo de recursos
+azure.resource_group_name = 'CCGroupH5'
+# Nombre de usuario
+azure.admin_username ='usuario'
+```
 
+- `vm_name:` Nombre de la máquina virtual a crear. En este caso, se ha utilizado `calendar` para la que contiendrá la aplicación y `database` para la relacionada con la base de datos.
+- `resource_group_name:` Nombre del grupo de recursos a usar. Si no existe, lo crea.
+- `admin_username:` Nombre del administrador/root de la MV.
+
+```console
+# Localización de la MV
+azure.location =  'francecentral'
+
+# Imagen a instalar en la MV
+azure.vm_image_urn = 'Canonical:UbuntuServer:18.04-LTS:18.04.201901140'	
+
+# Tamaño
+azure.vm_size = 'Standard_B1s'
+``` 
+
+Como ya especificamos en hitos anteriores se va a crear una máquina virtual con Ubuntu Server 18.04 LTS en el centro de Francia y con el paquete más barato de dicha ubicación. Para ello se necesita el URN que ya explicamos y obtuvimos.
+
+```
+# Puertos a abrir
+azure.tcp_endpoints = [80,27017]
+```
+
+Con el parámetro `tcp_endpoints` especificamos que queremos abrir el puerto 80 para comprobar posteriormente que se ha desplegado correctamente nuestra aplicación, y además habilitamos el puerto por defecto relacionado con MongoDB, 27017, para comunicarnos con nuestra base de datos. Si deseásemos que escuchase por otro deberíamos modificar el campo `port` del fichero `/etc/mongod.conf` de la máquina virtual cuyo alias es `db`, es decir, la relacionada con la base de datos [[4](https://carlosazaustre.es/como-conectarte-remotamente-a-tu-base-de-datos-mongodb/)].
+
+Y por último se explica la parte de aprovisionamiento `app.vm.provision "ansible"`:
+
+```
+ansible.host_vars = {
+  "app" => {"ansible_user" => "usuario"}
+}
+ansible.playbook = "recetaApp.yml"
+```
+
+Inicialmente especificamos que el usuario que vamos a usar es `usuario`. Cabe notar que se ha utilizado `ansible_user` en vez de `ansible_ssh_user` ya que Ansible 2.0 ha modificado dicho nombre [[5](https://docs.ansible.com/ansible/2.4/intro_inventory.html)]. 
+
+
+```
+# Red virtual
+azure.virtual_network_name = "redH5"
+```
+
+Por último, se crea la red virtual privada `redH5` para que las máquinas virtuales se puedan comunicar a través de ella.
 
 ## Creación, provisionamiento y despliegue
 
@@ -59,10 +150,10 @@ Como se anticipó anteriormente se crean las variables de entorno `AZURE_TENANT_
 
 Como varios compañeros recomendarón por el grupo se utiliza la opción `--no-parralel`:
 ```console
-vagrant up --provider=azure --no-parallel
+$ vagrant up --provider=azure --no-parallel
 ```
 
-Dicha opción evita que las máquinas se generen en paralelo, lo que suele provocar errores, creándose por tanto de forma secuencial. [[2](https://www.vagrantup.com/docs/cli/up.html)]
+Dicha opción evita que las máquinas se generen en paralelo, lo que suele provocar errores, creándose por tanto de forma secuencial. [[6](https://www.vagrantup.com/docs/cli/up.html)]
 
 
 Inicialmente se crea y provisiona la máquina virtual que contendrá la aplicación.
@@ -82,7 +173,7 @@ Para poder acceder a la base de datos remótamente debemos editar el fichero `/e
 $ sudo service mongod restart
 ```
 
-Por último, entramos en la máquina virtual que contiene nuestro proyecto y lo desplegamos especificando que la ip de mongo es ahora `10.0.0.5`:
+Por último, entramos en la máquina virtual que contiene nuestro proyecto y lo desplegamos especificando que la ip de mongo es ahora `10.0.0.5` [[7](https://www.twilio.com/blog/working-with-environment-variables-in-node-js-html)]:
 ```console
 $ vagrant ssh app
 usuario@calendar:~$ cd ProyectoCC/
@@ -118,7 +209,7 @@ exports.comprobarFecha = function(dia, mes, anio){
 }
 ```
 
-Cabe notar tanto en `moment` como `Date` se representan los meses con valores enteros de 0 (Enero) a 11 (Diciembre). [[1](https://momentjs.com/docs/), [2](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date), [3](https://desarrolloweb.com/articulos/mostrar-fecha-actual-javascript.html)] 
+Cabe notar tanto en `moment` como `Date` se representan los meses con valores enteros de 0 (Enero) a 11 (Diciembre). [[8](https://momentjs.com/docs/), [9](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Date), [10](https://desarrolloweb.com/articulos/mostrar-fecha-actual-javascript.html)] 
 
 Dicha función se ha empleado para verificar la fecha antes de insertarla el acontecimiento en la base de datos o modificar la fecha de uno ya existente. Además se ha añadido un test de verificación de dicha función en [testFecha.js](https://github.com/MarAl15/ProyectoCC/blob/master/test/testFecha.js).
 
@@ -134,6 +225,9 @@ var url = 'mongodb://'+ip_mongodb+'/acontecimientodb';
 
 - [GitHub oficial de Azure](https://github.com/Azure/vagrant-azure)
 
+- [Tema "Gestión de infraestructuras virtuales"](http://jj.github.io/CC/documentos/temas/Orquestacion)
+
 - [Usa Vagrant con Microsoft Azure](https://www.returngis.net/2015/11/usa-vagrant-con-microsoft-azure/)
 
 - [Gestionando máquinas virtuales con Vagrant](https://www.josedomingo.org/pledin/2013/09/gestionando-maquinas-virtuales-con-vagrant/)
+
