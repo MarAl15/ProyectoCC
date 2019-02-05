@@ -36,11 +36,14 @@ Vagrant.configure('2') do |config|
 			azure.virtual_network_name = "redH5"
 		end
 		
+		# Nombre de usuario predeterminado para SSH
+		app.ssh.username = "usuario"
+		
 		app.vm.provision "ansible" do |ansible|
-			ansible.playbook = "recetaApp.yml"
 			ansible.host_vars = {
-			  "app" => {"ansible_ssh_user" => "usuario"}
+			  "app" => {"ansible_user" => "usuario"}
 			}
+			ansible.playbook = "recetaApp.yml"
 		end
 	end
 
@@ -70,18 +73,20 @@ Vagrant.configure('2') do |config|
 			azure.vm_size = 'Standard_B1s'
 			
 			# Puertos a abrir
-			azure.tcp_endpoints = 27017
+			azure.tcp_endpoints = [80,27017]
 			
 			# Red virtual
 			azure.virtual_network_name = "redH5"
 		end
 		
+		# Nombre de usuario predeterminado para SSH
+		db.ssh.username = "usuario"
+		
 		db.vm.provision "ansible" do |ansible|
-			ansible.playbook = "recetaDB.yml"
-			
 			ansible.host_vars = {
-			  "app" => {"ansible_ssh_user" => "usuario"}
+			  "db" => {"ansible_user" => "usuario"}
 			}
+			ansible.playbook = "recetaDB.yml"
 		end
 	end
 end
