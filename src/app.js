@@ -8,8 +8,14 @@ var error404 = "ERROR Not Found";
 const Acontecimiento = require("./Acontecimiento.js"),
 	  cf = require("./ComprobarFecha.js");
 
+var ip_mongodb;
+if(process.env.IP_MONGO)
+	ip_mongodb = process.env.IP_MONGO;
+else
+	ip_mongodb = 'localhost';
+ 
 // Si no existe la base de datos MongoDB la crea por nosotros
-var url = 'mongodb://localhost/acontecimientodb';
+var url = 'mongodb://'+ip_mongodb+'/acontecimientodb';
 
 	
 // Establecer el puerto dependiendo del PaaS que sea
@@ -55,7 +61,7 @@ app.get('/Acontecimientos', function( req, response, next ) {
 
 // Agregar un acontecimiento
 app.put('/Acontecimientos/:etiqueta/:dia-:mes-:anio/:hora::minutos', function( req, response, next ) {
-	if(cf.comprobarFecha(req.params.dia, req.params.dia, req.params.anio)){
+	if(cf.comprobarFecha(req.params.dia, req.params.mes, req.params.anio)){
 		mongoose.connect(url, { useNewUrlParser: true }, function(err, db) {
 		  	if (err) return next(err);
 		  	
