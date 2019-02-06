@@ -2,8 +2,7 @@
 [![Language](https://img.shields.io/badge/Language-Node.js-blue.svg)](https://nodejs.org/es/)
 [![DBMS](https://img.shields.io/badge/DBMS-MongoDB-orange.svg)](https://www.mongodb.com/es)
 [![License](https://img.shields.io/badge/License-GPL-red.svg)](https://github.com/MarAl15/ProyectoCC/blob/master/LICENSE)
-[![Travis](https://img.shields.io/badge/Travis-travis-purple.svg)
-(https://travis-ci.org/MarAl15/ProyectoCC)
+[![Travis](https://img.shields.io/badge/Travis-travis-purple.svg)](https://travis-ci.org/MarAl15/ProyectoCC)
 # [Proyecto](https://maral15.github.io/ProyectoCC/) de la asignatura de Cloud Computing
 
 ## Calendario 
