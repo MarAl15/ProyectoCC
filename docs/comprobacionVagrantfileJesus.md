@@ -59,4 +59,6 @@ $ /usr/share/logstash/bin/logstash -f logstash.conf
 ``` 
 
 Y verificamos que se ha realizado el despliegue correctamente:
-
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h5-comprobacionJesus.png" weight="450">
+</p>
