@@ -41,5 +41,15 @@ MV2: 40.89.157.192
 
 Se ha construido un script para automatizar la creación de una máquina virtual en Azure mediante las órdenes del CLI de este. Para más información sobre la elección de la máquina virtual a instalar, la creación del script y el despliegue de la aplicación, consulte [este documento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito4.md). 
 
+### Orquestación de máquinas virtuales 
+
+Despliegue Vagrant: 52.143.160.195
+
+Se ha creado y aprovisionados dos máquinas virtuales en Azure con la ayuda de Vagrant y Ansible, una de ellas contendrá nuestra aplicación y la otra servirá para almacenar la base de datos de esta. Para más información consulte [este documento](https://github.com/MarAl15/ProyectoCC/blob/master/docs/hito5.md).
+
+- [Comprobación del Vagrantfile](https://github.com/MarAl15/ProyectoCC/blob/master/docs/comprobacionVagrantfileJesus.md) a mi compañero [Jesús Mesa González](https://github.com/mesagon)
+- Vagrantfile comprobado por [Jesús Mesa González](https://github.com/mesagon) en este [documento](https://github.com/mesagon/Proyecto-CC-MII/blob/master/docs/hito5/comprobacionVagrantfileMar.md)
+
+
 ## Licencia
 Este software se desarrollará bajo la licencia GNU General Public License v3.0
