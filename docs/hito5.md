@@ -56,7 +56,7 @@ config.vm.define "<alias>" do |<alias>|
 end	
 ```
 
-donde `<alias>` es `app` o `db`. Dentro de esta se define las características concretas que tendrá cada máquina virtual. Podemos distinguir los siguientes tres bloques:
+donde `<alias>` es `app` o `db`. Dentro de esta se define las características concretas que tendrá cada máquina virtual donde podemos distinguir tres bloques principalmente:
 
 ```
 <alias>.vm.provider :azure do |azure, override|
@@ -105,7 +105,7 @@ azure.admin_username ='usuario'
 - `resource_group_name:` Nombre del grupo de recursos a usar. Si no existe, lo crea.
 - `admin_username:` Nombre del administrador/root de la MV.
 
-```console
+```
 # Localización de la MV
 azure.location =  'francecentral'
 
@@ -116,7 +116,7 @@ azure.vm_image_urn = 'Canonical:UbuntuServer:18.04-LTS:18.04.201901140'
 azure.vm_size = 'Standard_B1s'
 ``` 
 
-Como ya especificamos en hitos anteriores se va a crear una máquina virtual con Ubuntu Server 18.04 LTS en el centro de Francia y con el paquete más barato de dicha ubicación. Para ello se necesita el URN que ya explicamos y obtuvimos.
+Como ya especificamos en el hito anterior se va a crear una máquina virtual con Ubuntu Server 18.04 LTS en el centro de Francia (con la que obtuvimos relativamente mejores resultados al testear el rendimiento de la aplicación utilizando Apache Benc) y con el paquete más barato de dicha ubicación. Para ello se utiliza la URN que obtuvimos (`Canonical:UbuntuServer:18.04-LTS:18.04.201901140`).
 
 ```
 # Puertos a abrir
