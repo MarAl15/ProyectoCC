@@ -179,14 +179,21 @@ Para poder acceder a la base de datos remótamente debemos editar el fichero `/e
 $ sudo service mongod restart
 ```
 
-Por último, entramos en la máquina virtual que contiene nuestro proyecto y lo desplegamos especificando que la ip de mongo es ahora `10.0.0.5` [[7](https://www.twilio.com/blog/working-with-environment-variables-in-node-js-html)]:
+Entramos en la máquina virtual que contiene nuestro proyecto y lo desplegamos especificando que la ip de mongo es ahora `10.0.0.5` [[7](https://www.twilio.com/blog/working-with-environment-variables-in-node-js-html)]:
 ```console
 $ vagrant ssh app
 usuario@calendar:~$ cd ProyectoCC/
 usuario@calendar:~$ sudo IP_MONGO="10.0.0.5" npm start
 ```
+
+Por último, verificamos que todo se ha realizado correctamente:
+
 <p align="center">
 <img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h5-comprobacion.png" weight="450">
+</p>
+
+<p align="center">
+<img src="https://github.com/MarAl15/ProyectoCC/blob/master/docs/images/h5-comprobacionDB.png" weight="400">
 </p>
 
 ## Avance y modificaciones
